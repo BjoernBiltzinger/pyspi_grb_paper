@@ -41,12 +41,24 @@ GRBs are transient sources with a typical duration only up to a few tens of seco
 %Therefore we can use the time before and after the GRB signal, but within the same science window, as a background measurement.
 %The background treatment we use, depends on two assumptions, namely that within one science window the background is stable and the pointing direction of SPI does not change.
 %Due to the high orbit and pointing scheme of INTEGRAL both these assumptions are valid.
-Therefore we can use the time intervals during a science window when the transient source is not active as an independent background measurement. Similar to other instruments that use spatially off-source observation as an independent background measurement. In the case of transients in SPI we have temporal off-source observation. From the background observations we construct the probability of the background model rates per energy channel from a poisson distribution, like given in equation \ref{eq:poisson_bkg}, where $b_{i}$ are the background rates per energy channel, $B_{i}$ are the detected counts in the off-source observation and $t_{b}$ is the exposure of the off-source observation.
+Therefore we can use the time intervals during a science window when the transient source is not active as an independent background measurement. Similar to other instruments that use spatially off-source observation as an independent background measurement. In the case of transients in SPI we have temporal off-source observation (see Fig. \ref{fig:lightcurve}). From the background observations we construct the probability of the background model rates per energy channel from a poisson distribution, like given in equation \ref{eq:poisson_bkg}, where $b_{i}$ are the background rates per energy channel, $B_{i}$ are the detected counts in the off-source observation and $t_{b}$ is the exposure of the off-source observation.
 \begin{equation}
 	L(b_{i}|B_{i}, t_{b})=\frac{(t_{b} b_{i})^{B_{i}}}{B_{i}!}\cdot e^{-t_{b} b_{i}}
   \label{eq:poisson_bkg}
 \end{equation}
 This will be used in the next paragraph to derive the total likelihood.
+
+\begin{figure}
+    \begin{centering}
+        \includegraphics{figures/lightcurve.pdf}
+        \caption{Lightcurve for SPI detector 0 for GRB120711A. The transient source is clearly visible as well as the constant background for the time when the transient is not active.}
+        % This label tells showyourwork that the script `figures/mandelbrot.py'
+        % generates the PDF file included above
+        \label{fig:lightcurve}
+    \end{centering}
+\end{figure}
+
+
 % add a lightcurve plot?
 
 \subsubsection*{Likelihood}
