@@ -6,4 +6,4 @@ dependencies:
   - python=3.9
   - pip:
       - matplotlib>=3.3.3
-      - pyspi==0.9.1
+      - py-spi==0.9.1
