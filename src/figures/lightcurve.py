@@ -1,6 +1,7 @@
 from pyspi.utils.data_builder.time_series_builder import TimeSeriesBuilderSPI
 import numpy as np
-
+import matplotlib.pyplot as plt
+plt.style.use("matplotlibrc")
 grb_time = "120711 024453" #(YYMMDD HHMMSS) - from GBM trigger time
 background_time_interval_1_spi = "-500--10"
 background_time_interval_2_spi = "150-1000"
