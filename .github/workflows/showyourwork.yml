@@ -39,12 +39,6 @@ jobs:
           unzip -o ~/data.zip -d ~/
           fi
 
-      - name: Copy example data folder to external data folder
-        run: |
-          mkdir -p /home/runner/PySPI_data/pointing_data
-          cp -r pyspi_grb_paper/data/* /home/runner/PySPI_data/pointing_data
-
-
       - name: Build the article PDF
         id: build
         uses: ./showyourwork/showyourwork-action
