@@ -16,8 +16,39 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
+      - name: Cache data folder
+        uses: actions/cache@v2
+        id: cache-data-folder
+        with:
+          path: ~/data
+          key: data
+
+      - name: Download data folder
+        env:
+          CACHE_HIT: ${{steps.cache-data-folder.outputs.cache-hit}}
+        run: |
+          echo "Getting data folder"
+          if [[ "$CACHE_HIT" == 'true' ]]; then
+
+          echo "data folder already in cache. using this."
+
+          else
+          echo "Download zip data folder."
+          wget https://grb.mpe.mpg.de/pyspi_datafolder
+          mv pyspi_datafolder ~/data.zip
+          unzip -o ~/data.zip -d ~/
+          fi
+
+      - name: Copy example data folder to external data folder
+        run: |
+          mkdir -p /home/runner/PySPI_data/pointing_data
+          cp -r pyspi/data/* /home/runner/PySPI_data/pointing_data
+
+
       - name: Build the article PDF
         id: build
         uses: ./showyourwork/showyourwork-action
         env:
           ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
+          PYSPI: /home/runner/PySPI_data
+          PYSPI_PACKAGE_DATA: /home/runner/data
