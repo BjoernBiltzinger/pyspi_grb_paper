@@ -43,7 +43,7 @@ GRBs are transient sources with a typical duration only up to a few tens of seco
 %Due to the high orbit and pointing scheme of INTEGRAL both these assumptions are valid.
 Therefore we can use the time intervals during a science window when the transient source is not active as an independent background measurement. Similar to other instruments that use spatially off-source observation as an independent background measurement. In the case of transients in SPI we have temporal off-source observation. From the background observations we construct the probability of the background model rates per energy channel from a poisson distribution, like given in equation \ref{eq:poisson_bkg}, where $b_{i}$ are the background rates per energy channel, $B_{i}$ are the detected counts in the off-source observation and $t_{b}$ is the exposure of the off-source observation.
 \begin{equation}
-	L(b_{i}|B_{i}, t_{b})=\frac{(t_{b} b_{i})^{B_{i}}}{B_{i}!}\cdot e^{-t_{b}*b_{i}}
+	L(b_{i}|B_{i}, t_{b})=\frac{(t_{b} b_{i})^{B_{i}}}{B_{i}!}\cdot e^{-t_{b} b_{i}}
   \label{eq:poisson_bkg}
 \end{equation}
 This will be used in the next paragraph to derive the total likelihood.
@@ -54,20 +54,20 @@ This will be used in the next paragraph to derive the total likelihood.
 With the defined background treatment, we can construct a Poisson likelihood with a Poisson measurement of background, like given in \ref{eq:likelihood_m_and_b}. Here $\theta$ summarizes all the parameters of the model, $D_{i}$ are the measured counts in the selected active time interval of the transient source, $m(\theta)_{i}$ are the predicted counts from the model evaluated at the parameters $\theta$ and $t_{d}$ is the exposure of the selected active time interval.
 
 \begin{equation}
-	L(\theta, b_{i}|D_{i}, B_{i},t_{d},t_{b}) = \frac{(t_{d}(m(\theta)_{i}+ b_{i}))^{D_{i}}}{D_{i}!}\cdot e^{-t_{d}*(m(\theta)+b_{i})} \frac{(t_{b} b_{i})^{B_{i}}}{B_{i}!}\cdot e^{-t_{b}*b_{i}}
+	L(\theta, b_{i}|D_{i}, B_{i},t_{d},t_{b}) = \frac{(t_{d}(m(\theta)_{i}+ b_{i}))^{D_{i}}}{D_{i}!}\cdot e^{-t_{d}(m(\theta)+b_{i})} \frac{(t_{b} b_{i})^{B_{i}}}{B_{i}!}\cdot e^{-t_{b} b_{i}}
   \label{eq:likelihood_m_and_b}
 \end{equation}
 
 Now we can marginalize over the parameters $b_{i}$, that we are not interested in, which leaves us with equation \ref{eq:likelihood_marg}.
 
 \begin{equation}
-	L(\theta|D_{i}, B_{i},t_{d},t_{b}) = \int_{0}^{\infty}\textrm{db}_{i}\frac{(t_{d}(m(\theta)_{i}+ b_{i}))^{D_{i}}}{D_{i}!}\cdot e^{-t_{d}*(m(\theta)+b_{i})} \frac{(t_{b} b_{i})^{B_{i}}}{B_{i}!}\cdot e^{-t_{b}*b_{i}}
+	L(\theta|D_{i}, B_{i},t_{d},t_{b}) = \int_{0}^{\infty}\textrm{db}_{i}\frac{(t_{d}(m(\theta)_{i}+ b_{i}))^{D_{i}}}{D_{i}!}\cdot e^{-t_{d}*(m(\theta)+b_{i})} \frac{(t_{b} b_{i})^{B_{i}}}{B_{i}!}\cdot e^{-t_{b}b_{i}}
   \label{eq:likelihood_marg}
 \end{equation}
 
 Because there is no easy analytical solution for this integral, one often uses a so-called profiled likelihood as an approximation. For the profiled likelihood we use the fact, that the derivative of the likelihood at its maximum should be zero. Therefore one can construct from $\frac{\textrm{dL}}{\textrm{db}_i}=0$ the background rates $b_{i, max}$ that maximize the likelihood for a given model $m(\theta)_{i}$ and observed counts. Solving $\frac{\textrm{dL}}{\textrm{db}_i}=0$ for b gives equation \ref{eq:bmax}.
 \begin{equation}
-	b_{i,max}=
+	b_{i,max}=\frac{1}{2(t_{b}+t_{d}})}(B_{i}+D_{i}-m(\theta)_{i}t_{b}-m(\theta)_{i}t_{d}+\sqrt((B_{i}+D_{i}+m(\theta)_{i}(t_{b}+t_{d}))^{2}-4m(\theta)_{i}D_{i}(t_{d}-t_{b}))
   \label{eq:bmax}
 \end{equation}
 
