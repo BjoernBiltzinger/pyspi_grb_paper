@@ -103,10 +103,18 @@ In PySPI we then interpolate the official response files to the user defined ene
 
 \subsubsection*{Electronic Noise}
 
-Since shortly after the start of INTEGRAL, it is known that there are spurious events in the SPI data around 1.5 MeV. According to Roques (cite) these spurious events are photons with small energy (<100 keV) that get detected at a higher energy due to saturation of the ??? electronics by previous high energy deposition. It is also known, that these spurious events do not show up if one looks only at events with a detection also in the Pulse Shape Discriminator (PSD) electronics. This is because the PSD electronics has an low energy threshold of roughly 450 keV (the exact value has been changed a few times during the mission). Therefore only events that deposit more than this low energy threshold in the Germanium crystal can trigger this electronic, which eliminates the <100 keV events that are detected at the wrong energies by the AFEE electronics. In Fig. ? one can see that the feature at 1.5 MeV in the non-PSD events is nicely visible and is missing in the PSD events.
+Since shortly after the start of INTEGRAL, it is known that there are spurious events in the SPI data around 1.5 MeV. According to Roques (cite) these spurious events are photons with small energy (<100 keV) that get detected at a higher energy due to saturation of the ??? electronics by previous high energy deposition. It is also known, that these spurious events do not show up if one looks only at events with a detection also in the Pulse Shape Discriminator (PSD) electronics. This is because the PSD electronics has an low energy threshold of roughly 450 keV (the exact value has been changed a few times during the mission). Therefore only events that deposit more than this low energy threshold in the Germanium crystal can trigger this electronic, which eliminates the <100 keV events that are detected at the wrong energies by the AFEE electronics. In Fig. \ref{fig:electronic} one can see that the feature at 1.5 MeV in the non-PSD events is nicely visible and is missing in the PSD events. Even though this problem is the most significant in the area around 1.5 MeV it is also important at lower energies >400 keV.
 
 
-(add plot with electronic noise in sgl events and not in psd)
+\begin{figure}
+    \begin{centering}
+        \includegraphics{figures/electronic_noise.pdf}
+        \caption{Count spectrum for detector 0 integrated over 1000 seconds. One can clearly see the feature in the Non-PSD events at 1.5 MeV that is not visible in the PSD events.}
+        % This label tells showyourwork that the script `figures/mandelbrot.py'
+        % generates the PDF file included above
+        \label{fig:electronic}
+    \end{centering}
+\end{figure}
 
 \subsubsection*{General Procedure}
 
