@@ -42,6 +42,8 @@ jobs:
       - name: Build the article PDF
         id: build
         uses: ./showyourwork/showyourwork-action
+        with:
+          install-tex: true
         env:
           ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
           PYSPI: /home/runner/PySPI_data
