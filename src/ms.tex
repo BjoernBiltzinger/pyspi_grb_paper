@@ -67,7 +67,7 @@ Now we can marginalize over the parameters $b_{i}$, that we are not interested i
 
 Because there is no easy analytical solution for this integral, one often uses a so-called profiled likelihood as an approximation. For the profiled likelihood we use the fact, that the derivative of the likelihood at its maximum should be zero. Therefore one can construct from $\frac{\textrm{dL}}{\textrm{db}_i}=0$ the background rates $b_{i, max}$ that maximize the likelihood for a given model $m(\theta)_{i}$ and observed counts. Solving $\frac{\textrm{dL}}{\textrm{db}_i}=0$ for b gives equation \ref{eq:bmax}.
 \begin{equation}
-	b_{i,max}=\frac{1}{2(t_{b}+t_{d}})}(B_{i}+D_{i}-m(\theta)_{i}t_{b}-m(\theta)_{i}t_{d}+\sqrt((B_{i}+D_{i}+m(\theta)_{i}(t_{b}+t_{d}))^{2}-4m(\theta)_{i}D_{i}(t_{d}-t_{b}))
+	b_{i,max}=\frac{1}{2(t_{b}+t_{d}})(B_{i}+D_{i}-m(\theta)_{i}t_{b}-m(\theta)_{i}t_{d}+\sqrt{(B_{i}+D_{i}+m(\theta)_{i}(t_{b}+t_{d}))^{2}-4m(\theta)_{i}D_{i}(t_{d}-t_{b})}
   \label{eq:bmax}
 \end{equation}
 
