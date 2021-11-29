@@ -1,5 +1,5 @@
 % Define document class
-\documentclass[modern]{aastex631}
+\documentclass[twocolumn]{aa}
 
 % Filler text
 \usepackage{blindtext}
@@ -21,7 +21,7 @@
 
 % Main body with filler text
 \section{Introduction}
-Gamma-Ray Bursts (GRBs) are short transient bursts of gamma rays, with a typical active time range between a few ms and few hundred seconds for the prompt phase, which is mostly observed in X- and Gamma-Rays. After the prompt emission there is a long lasting afterglow phase when the ejecta interacts with the Inter Steallar Medium (ISM). Long GRBs ($\approx$> 2s) have been associated to the collapse of massive stars (cite), whereas short GRBs are believed to be caused by mergers of compact objects, like Neutron Stars (cite grb-gw). In both cases is commonly agreed on that the progenitor events of GRBs should produce jetted relativistic outflows, which consists of shells which results in internal shell collisions. But it is still highly debated what the exact emission mechanism of the Gamma-Rays is.
+Gamma-Ray Bursts (GRBs) are short transient bursts of gamma rays, with a typical active time range between a few ms and few hundred seconds for the prompt phase, which is mostly observed in X- and Gamma-Rays. After the prompt emission there is a long lasting afterglow phase when the ejecta interacts with the Inter Steallar Medium (ISM). Long GRBs ($\approx$> 2s) have been associated to the collapse of massive stars (cite), whereas short GRBs are believed to be caused by mergers of compact objects, like Neutron Stars (cite grb-gw). In both cases is commonly agreed on that the progenitor events of GRBs should produce jetted relativistic outflows, which consists of shells resulting in internal shell collisions. But it is still highly debated what the exact emission mechanism of the Gamma-Rays is.
 
 In the past, GRB data was often fitted with empirical function like the Band function (cite band). But in recent years it has been shown, that this approach can be misleading and that one should rather fit physical models directly to the data. An example for this is the so-called line-of-death for synchrotron emission, which states that synchrotron radiation can not be the emission mechanism, if fits with a Band function give a low energy power law slope larger than -2/3. (cite) have shown that this conclusion is not correct and that you can fit GRB spectral well with a physical synchrotron model even though the same spectra violate the line-of-death if fitted with a Band function.
 The Gamma-Ray Burst Monitor (GBM) onboard of the Fermi satellite is often used to fit GRB data in the Gamma-Ray energy range. GBM is an all-sky instrument, that observes the whole sky, except the part that is occulted by the Earth at that time. It consists of 12 NaI and two BGO scintillator detectors that cover in total an energy range between 8 keV and 10 MeV. (cite)
@@ -52,8 +52,6 @@ This will be used in the next paragraph to derive the total likelihood.
     \begin{centering}
         \includegraphics{figures/lightcurve.pdf}
         \caption{Lightcurve for SPI detector 0 for GRB120711A. The transient source is clearly visible as well as the constant background for the time when the transient is not active.}
-        % This label tells showyourwork that the script `figures/mandelbrot.py'
-        % generates the PDF file included above
         \label{fig:lightcurve}
     \end{centering}
 \end{figure}
@@ -110,8 +108,6 @@ Since shortly after the start of INTEGRAL, it is known that there are spurious e
     \begin{centering}
         \includegraphics{figures/electronic_noise.pdf}
         \caption{Count spectrum for detector 0 integrated over 1000 seconds. One can clearly see the feature in the Non-PSD events at 1.5 MeV that is not visible in the PSD events.}
-        % This label tells showyourwork that the script `figures/mandelbrot.py'
-        % generates the PDF file included above
         \label{fig:electronic}
     \end{centering}
 \end{figure}
@@ -137,6 +133,17 @@ PySPI can construct a plugin for the Multi-Mission Maximum Likelihood framework 
 
 PySPI is an open source software, which is publicly available on GitHub. There is also a documentation, that shows how to use PySPI for other GRBs as well. (cite JOSS, link to repo, docs).
 
+\subsection{OSA}
+\label{OSA}
+
+As we are introducing a new analysis software in this work, we want to compare it to the existing analysis software, to check if the results are in agreement. Therefor we shortly summarize the official analysis tools for GRB analysis, which are part of the INTEGRAL Offline Scientific Analysis (OSA) software, here.
+
+Analyzing GRB data from SPI with the OSA tools is a multi step process. The first steps are selecting the science window with the GRB, the time intervals for active time and background time as well as the energy bins for the analysis. After that one can either find the location of the GRB with SPIROS or set it manually, if it is already known. The next steps concern the spectral fitting, which is done in a two step procedure, which will be called Photo Peak Fitting and Energy Redistribution Fitting hereafter.
+
+\subsubsection*{Photo Peak Fitting}
+
+The first step in the spectral fitting with OSA is to use only the photo peak response of the detectors. These responses depend on the source position
+
 \subsection{Synchrotron Model}
 
 We use pynchrotron (cite github) to calculate the spectrum from a physical, time dependent spectral model. This model was previously used to successfully fit many single pulse GRBs with GBM in cite syn paper. This paper also include a detailed description of the model. Here we only want to summarize the main points shortly.
@@ -154,7 +161,7 @@ The core of the model is the assumption of some generic acceleration mechanism, 
 For more details about the model check (cite Syn paper).
 
 \subsection{Model Checking}
-
+\ref{PPC}
 To check if the fit of a model is a good description of the measured data is a very complicated topic and highly debated in the statistics community. Measurements like reduced $\chi^{2}$ assume that all the probability distributions in the problem are described as normal distributions, which is definitely not the case here, as for example the measurement process is a Poisson process. Therefore we decided to use Posterior Predictive Checks (PPCs), which use the posterior of the fit as well as the measurement process to simulate new data.
 
 \begin{equation}
@@ -164,14 +171,26 @@ To check if the fit of a model is a good description of the measured data is a v
 Here $y^{\textrm{obs}}$ are the observed data, $\textrm{P}(\theta|y^{\textrm{obs}})$ is the posterior distribution of the model parameters $\theta$ given the observed data, $\textrm{P}(y^{\textrm{sim}}|\theta)$ is the probability of new data given the parameters of the model and $y^{\textrm{sim}}$ are the simulated data. These simulated data are then compared to the observed data and allow for a visual check, whether the fit results together with the measuring process can reproduce the data. (cite paper for this)
 \section{Analysis}
 
-- GRB120711A seen by SPI and GBM
-- bright multi pulse GRB with a precurser and a long emission period of ~ 100 seconds
-- select ~ 10 seconds to avoid to much spectral evolution and response change for GBM
-- Fit with OSA, PySPI and GBM (explain procedure...) with Band -> in agreement but PySPI>>OSA
-- FIt OSA, PySPI and GBM with Synch -> in agreement but PySPI>>OSA
-- Fit PySPI and GBM combined -> improvement on parameter space.
+In this work we analyze GRB 120711A, which was a multi bright pulse GRB with a precursor and a long emission period of $\approx$100 seconds. It was detected by SPI and GBM. In this work we only look at one time slice with a duration of 10 seconds around the highest peak in the light curves (add light curve plot with SPI and GBM data).
 
-- Simulation?
+First we analyze the data from the two instruments independently with empirical and physical models, to check if the results for SPI and GBM are in agreement and show a comparison between the fit results with PySPI and the official software tools for GRB analysis within OSA. After that we fit the data simultaneously, to show that it can reduce the allowed parameter space significantly.
+
+All the fits in this section are done with 3ML and the Bayesian sampler algorithm MultiNest (cite) to create full posterior distributions.
+
+\subsection{Compare PySPI and OSA}
+
+We analyze the SPI data for the same time interval with PySPI and OSA, to check if the results are in agreement. The two methods are described in \ref{OSA} and \ref{pyspi}. This is done for a fit with an empirical model (Band function) and a fit with the physical synchrotron model. The resulting posterior distributions, displayed as corner plots, and the PPC plots (see \ref{PPC}) are shown in Fig. ? - Fig. ?. The posterior distributions show, that the results from the two analysis techniques are in agreement, but PySPI can constrain the parameters much better.
+
+(include figs for band function and syn. fits!)
+
+\subsection{Compare SPI and GBM}
+
+Next, we analyze the SPI data with PySPI and the GBM data with the GRB analysis within 3ML (cite a paper for this?). Again we do this for an empirical model and the physical synchrotron model. The fit results are shown in Fig. ? - Fig. ?.
+
+
+\subsection{Joint Fit of SPI and GBM}
+
+The final analysis is a joint fit with SPI and GBM. This
 
 \section{Conclusion}
 
