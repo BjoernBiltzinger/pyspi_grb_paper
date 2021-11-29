@@ -6,4 +6,5 @@ dependencies:
   - python=3.9
   - pip:
       - matplotlib>=3.3.3
+      - git+https://github.com/threeML/threeML.git@refs/pull/516/head
       - py-spi==0.9.1
