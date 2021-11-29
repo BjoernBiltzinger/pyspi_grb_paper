@@ -31,7 +31,7 @@ f = tsb_sgl.view_lightcurve(-300,500);
 axis = f.axes[0]
 
 axis.get_lines()[0].set_color(color1)
-axis.get_lines()[1].set_color(color2)
+#axis.get_lines()[1].set_color(color2)
 axis.collections[0].set_color(color3)
 axis.collections[1].set_color(color3)
 axis.legend()

@@ -16,6 +16,16 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
+      - name: Install 3ML PR
+        run: |
+          pip install astromodels
+          git clone https://github.com/threeML/threeML.git
+          cd threeML
+          git fetch origin pull/516/head:pr_516
+          git checkout pr_516
+          python setup.py install
+          cd ..
+
       - name: Cache data folder
         uses: actions/cache@v2
         id: cache-data-folder
