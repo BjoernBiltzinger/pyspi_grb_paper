@@ -20,7 +20,6 @@ tsb_sgl = TimeSeriesBuilderSPI.from_spi_grb("SPIDet0",
                                             sgl_type="both",
                                             poly_order=0,
                                             )
-
 tsb_sgl.set_background_interval(background_time_interval_1_spi,
                                 background_time_interval_2_spi,
                                 fit_poly=False
