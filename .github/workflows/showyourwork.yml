@@ -23,7 +23,7 @@ jobs:
           cd threeML
           git fetch origin pull/516/head:pr_516
           git checkout pr_516
-          python setup.py install
+          python setup.py develop
           cd ..
 
       - name: Cache data folder
