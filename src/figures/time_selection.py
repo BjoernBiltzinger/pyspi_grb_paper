@@ -55,11 +55,9 @@ sls1 = []
 tss1 = []
 
 from threeML.utils.data_download.Fermi_GBM.download_GBM_data import download_GBM_trigger_data
-download_GBM_trigger_data("bn120711115", [det], "/home/runner/")
-import os
-print(os.listdir("/home/runner/"))
-tte_file = "/home/runner/glg_tte_{}_bn120711115_v00.fit.gz".format(det)
-rsp2_file="/home/runner/glg_cspec_{}_bn120711115_v00.rsp2".format(det)
+download_GBM_trigger_data("bn120711115", [det], ".")
+tte_file = "glg_tte_{}_bn120711115_v00.fit.gz".format(det)
+rsp2_file="glg_cspec_{}_bn120711115_v00.rsp2".format(det)
 ts = TimeSeriesBuilder.from_gbm_tte('gbm{}'.format(det), tte_file, rsp2_file)
 ts.set_active_time_interval(active_time_gbm)
 ts.set_background_interval(background_time_interval_1_gbm,
