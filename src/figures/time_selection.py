@@ -57,7 +57,7 @@ tss1 = []
 from threeML.utils.data_download.Fermi_GBM.download_GBM_data import download_GBM_trigger_data
 download_GBM_trigger_data("bn120711115", [det], "/home/runner/")
 import os
-os.listdir("/home/runner/")
+print(os.listdir("/home/runner/"))
 tte_file = "/home/runner/glg_tte_{}_bn120711115_v00.fit".format(det)
 rsp2_file="/home/runner/glg_cspec_{}_bn120711115_v00.rsp2".format(det)
 ts = TimeSeriesBuilder.from_gbm_tte('gbm{}'.format(det), tte_file, rsp2_file)
