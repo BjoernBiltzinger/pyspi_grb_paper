@@ -2,11 +2,11 @@ from pyspi.utils.data_builder.time_series_builder import TimeSeriesBuilderSPI
 import numpy as np
 import matplotlib.pyplot as plt
 plt.style.use("matplotlibrc")
-color1 = "#544b3dff"
-color2 = "#340068ff"
-color3 = "#4cb944ff"
-color4 = "#4f7cacff"
-color5 = "#6d2e46ff"
+color1 = "#544b3d"
+color2 = "#340068"
+color3 = "#4cb944"
+color4 = "#4f7cac"
+color5 = "#6d2e46"
 
 ebounds=np.geomspace(20,8000,100)
 grb_time = "120711 024453" #(YYMMDD HHMMSS) - from GBM trigger time
