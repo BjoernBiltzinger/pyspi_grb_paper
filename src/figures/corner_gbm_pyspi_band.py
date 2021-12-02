@@ -1,5 +1,6 @@
 from chainconsumer import ChainConsumer
 import numpy as np
+import matplotlib.pyplot as plt
 plt.style.use("matplotlibrc")
 
 color1 = "#544b3dff"
