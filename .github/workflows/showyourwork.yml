@@ -54,6 +54,10 @@ jobs:
           unzip -o ~/data.zip -d ~/
           fi
 
+      - name: install dvipng
+        run: |
+          sudo apt-get install dvipng
+
       - name: Build the article PDF
         id: build
         uses: ./showyourwork/showyourwork-action

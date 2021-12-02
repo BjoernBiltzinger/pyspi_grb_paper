@@ -16,7 +16,7 @@ def loadtxt2d(intext):
             return np.loadtxt(intext)
 
 c = ChainConsumer()
-c.configure(plot_hists=False, kde=1.0)
+
 chain = loadtxt2d('./chains/PYSPI_BAND_post_equal_weights.dat')
 
 c.add_chain(chain[:,:4], parameters=['K', r'$\alpha$', r'$E_{peak}$', r'$\beta$'],
