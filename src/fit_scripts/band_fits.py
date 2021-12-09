@@ -127,14 +127,29 @@ model1 = Model(ps1)
 
 #### INIT OSA plugin #####
 
+from threeML import OGIPLike
+spi = OGIPLike("spi",
+               observation="/home/bjorn/Downloads/spectra_GRB_peak.fits",
+               response="/home/bjorn/Downloads/spectral_response_peak.rmf.fits")
 
 ########################### FITS ##################################
 
 #### OSA ###########
 from threeML import DataList, BayesianAnalysis
+from astromodels import clone_model
+model_osa = clone_model(model1)
+datalist = DataList(spi)
+ba_osa_band_1 = BayesianAnalysis(model_osa, datalist)
+name_fit = 'OSA_BAND'
+ba_osa_band_1.set_sampler("multinest", share_spectrum=True)
+ba_osa_band_1.sampler.setup(800,
+                    chain_name='chains/{}_'.format(name_fit),
+                    resume=False,
+                    verbose=True,
+                    importance_nested_sampling=False)
+ba_osa_band_1.sample()
 
 #### PYSPI ###########
-from astromodels import clone_model
 model_pyspi = clone_model(model1)
 datalist_spi = DataList(*spilikes_sgl, *spilikes_sgl2, *spilikes_psd)#, *spilikes_sgl2)
 ba_spi_new_band = BayesianAnalysis(model_pyspi, datalist_spi)
