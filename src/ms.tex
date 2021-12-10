@@ -167,10 +167,10 @@ The first step in the spectral fitting with OSA is to use only the photo peak re
 The pseudo photon flux data points from the 'Photo Peak Fitting' step, which are no real data points anymore, are fitted with a spectral photon flux model which is convolved with a correction response, which is also available through OSA. This correction response depends on the source position and energy bins that are used and should account for energy dispersion as well as resolution. In this step the energy channels are fitted simultaneously, as it is impossible to incorporate energy dispersion in a way that fits every energy channel individually. This fitting can be done in different spectral fitting software like 3ML or XSPEC. In this work we always used 3ML.
 
 \subsection{Synchrotron Model}
-
+\label{synch}
 We use pynchrotron (cite github) to calculate the spectrum from a physical, time dependent spectral synchrotron model. This model was previously used to successfully fit many single pulse GRBs with GBM in cite syn paper. This paper also include a detailed description of the model. Here we only want to summarize the main points shortly.
 
-The core of the model is the assumption of some generic acceleration mechanism, that constantly produces an electron spectrum with a power law shape $N(\gamma )\propto gamma^{-p}$ between $\gamma_{inj}$ and $\gamma_{max}$. These electrons are cooled via synchrotron cooling in a magnetic field and produce radiation in this process. The resulting photon spectrum is defined by five quantities:
+The core of the model is the assumption of some generic acceleration mechanism, that constantly produces an electron spectrum with a power law shape $N(\gamma )\propto gamma^{-p}$ between $\gamma_{inj}$ and $\gamma_{max}$. These electrons are cooled via synchrotron cooling in a magnetic field and produce radiation in this process. The resulting photon spectrum is the sum of the photon spectra at every time step in the cooling process and is defined by five quantities:
 
 \begin{enumerate}
 	\item Magnetic field strength $B$
@@ -180,7 +180,7 @@ The core of the model is the assumption of some generic acceleration mechanism, 
   \item Characteristic Lorentz factor the electrons cool to $\gamma_{cool}$
 \end{enumerate}
 
-For more details about the model check (cite Syn paper).
+There exists a strong degeneracy between $B$ and $\gamma_{inj}$, as their combination sets the peak of the photon spectrum. Therefore one usually fixes $\gamma_{inj}=10^{5}$ and only fits for $B$. It is important to keep in mind, that the results for $\gamma_{max}$ and $\gamma_{cool}$ are determined relative to the fixed $\gamma_{inj}$. For more details about the model check (cite Syn paper).
 
 \subsection{Model Checking}
 \label{PPC}
@@ -212,20 +212,20 @@ All the fits in this section are done with 3ML and the Bayesian sampler algorith
 
 \subsection{Compare PySPI and OSA}
 
-We analyze the SPI data for the same time interval with PySPI and OSA, to check if the results are in agreement. The two methods are described in \ref{OSA} and \ref{pyspi}. This is done for a fit with an empirical model (Band function) and a fit with the physical synchrotron model. The resulting posterior distributions, displayed as corner plots, and the PPC plots (see \ref{PPC}) are shown in Fig. ? - Fig. ?. The posterior distributions show, that the results from the two analysis techniques are in agreement, but PySPI can constrain the parameters much better.
+We analyze the SPI data with a band function as spectral model for the same time interval with PySPI and OSA, to check if the results are in agreement. The two methods are described in \ref{OSA} and \ref{pyspi}. Fig. \ref{fig:corner_osa_pyspi_band} shows the resulting posterior distributions of the fits, displayed as a corner plot. The results for the spectral shape from the two analysis techniques agree within their uncertainty region, but PySPI can constrain the parameters more precise.
 
 \begin{figure}
   \begin{centering}
     \includegraphics[width=1\linewidth]{figures/pyspi_vs_osa_band.pdf}
     \label{fig:corner_osa_pyspi_band}
-    \caption{Corner plot for the SPI fit with PySPI and the official tools. The spectral model is a band function. The results are in agreement, but PySPI can constrain the parameters better.}
+    \caption{Corner plot for the SPI fit with PySPI and the official tools. The spectral model in this fit is a band function. It shows, that the results are in agreement, but PySPI can constrain the parameters better.}
   \end{centering}
 \end{figure}
 
 
 \subsection{Compare SPI and GBM}
 
-Next, we analyze the SPI data with PySPI and the GBM data with the GRB analysis within 3ML (cite a paper for this?). Again we do this for an empirical model and the physical synchrotron model. The fit results are shown in Fig. ? - Fig. ?.
+Next, we analyze the SPI data with PySPI and the GBM data with the GRB analysis within 3ML (cite a paper for this?) for a band function model. Fig. \ref{fig:corner_gbm_pyspi_band} displays the corner plots for these fits, showing that the results for the spectral shape form PySPI and GBM are in agreement. It also shows that the calibration for SPI and GBM are well aligned within only $\approx$ 10\% difference.
 
 \begin{figure}
   \begin{centering}
@@ -237,7 +237,15 @@ Next, we analyze the SPI data with PySPI and the GBM data with the GRB analysis 
 
 \subsection{Joint Fit of SPI and GBM}
 
-The final analysis is a joint fit with SPI and GBM. This
+The final analysis is a joint fit for the SPI and the GBM data with the physical synchrotron model (see \ref{synch}).
+
+\begin{figure}
+  \begin{centering}
+    \includegraphics[width=1\linewidth]{figures/pyspi_and_gbm_syn.pdf}
+    \label{fig:corner_gbm_pyspi_joined_syn}
+    \caption{Corner plot for the SPI fit with PySPI and the GBM fit. In this fit we used a Band function as spectral model.}
+  \end{centering}
+\end{figure}
 
 \section{Conclusion}
 
