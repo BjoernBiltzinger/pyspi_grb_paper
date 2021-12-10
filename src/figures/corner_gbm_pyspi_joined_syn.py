@@ -25,7 +25,7 @@ c.add_chain(chain[:,:4], parameters=['K','B', 'p', r'$\gamma_{cool}$'],
 chain = loadtxt2d('./chains/PYSPI_SYN_post_equal_weights.dat')
 
 c.add_chain(chain[:,:4], parameters=['K','B', 'p', r'$\gamma_{cool}$'], name='PYSPI',
-            color=color1)
+            color=color3)
 
 chain = loadtxt2d('./chains/BOTH_SYN_post_equal_weights.dat')
 

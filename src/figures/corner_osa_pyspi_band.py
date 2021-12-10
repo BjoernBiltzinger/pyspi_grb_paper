@@ -25,7 +25,7 @@ c.add_chain(chain[:,:4], parameters=['K', r'$\alpha$', r'$E_{peak}$', r'$\beta$'
 chain = loadtxt2d('./chains/PYSPI_BAND_post_equal_weights.dat')
 
 c.add_chain(chain[:,:4], parameters=['K', r'$\alpha$', r'$E_{peak}$', r'$\beta$'], name='PYSPI',
-            color=color1)
+            color=color3)
 
 c.configure(plot_hists=False, kde=1.0, shade_alpha=0.5)
 

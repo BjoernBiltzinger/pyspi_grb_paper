@@ -20,7 +20,7 @@ c = ChainConsumer()
 chain = loadtxt2d('./chains/PYSPI_BAND_post_equal_weights.dat')
 
 c.add_chain(chain[:,:4], parameters=['K', r'$\alpha$', r'$E_{peak}$', r'$\beta$'],
-            name='PYSPI', color=color1)
+            name='PYSPI', color=color3)
 
 chain = loadtxt2d('./chains/GBM_BAND_post_equal_weights.dat')
 
