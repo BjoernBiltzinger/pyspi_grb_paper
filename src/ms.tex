@@ -194,7 +194,7 @@ To check if the fit of a model is a good description of the measured data is a v
 Here $y^{\textrm{obs}}$ are the observed data, $\textrm{P}(\theta|y^{\textrm{obs}})$ is the posterior distribution of the model parameters $\theta$ given the observed data, $\textrm{P}(y^{\textrm{sim}}|\theta)$ is the probability of new data given the parameters of the model and $y^{\textrm{sim}}$ are the simulated data. These simulated data are then compared to the observed data and allow for a visual check, whether the posterior distributions of the fit together with the measuring process can reproduce the data. (cite paper for this)
 \section{Analysis}
 
-In this work we analyze GRB 120711A, which was a bright, multi pulse GRB with a precursor and a long emission period of $\approx$100 seconds. It was detected by SPI and GBM. In this work we only look at one time slice with a duration of 10 seconds around the highest peak in the light curves
+In this work we analyze GRB 120711A, which was a bright, multi pulse GRB with a precursor and a long emission period of $\approx$100 seconds. It was detected with SPI and GBM. We only look at one time slice with a duration of 10 seconds around the highest peak in the light curves (see Fig. \ref{fig:time_selection}).
 
 \begin{figure}
   \begin{centering}
@@ -206,9 +206,9 @@ In this work we analyze GRB 120711A, which was a bright, multi pulse GRB with a 
 \end{figure}
 
 
-First we analyze the data from the two instruments independently with empirical and physical models, to check if the results for SPI and GBM are in agreement as well as show a comparison between the fit results with PySPI and the official software tools for GRB analysis within OSA. After that we fit the data of SPI and GBM simultaneously, to show that it can reduce the allowed parameter space significantly.
+We analyze the data from the two instruments independently first with the empirical Band function, to check if the results for SPI and GBM are in agreement as well as show a comparison between the fit results with PySPI and the official software tools for GRB analysis within OSA. Then we fit the SPI and GBM data simultaneously with a physical synchrotron model, and show that it can reduce the allowed parameter space significantly, compared to the individual fits.
 
-All the fits in this section are done with 3ML and the Bayesian sampler algorithm MultiNest (cite) to create full posterior distributions of the parameters.
+All the fits in this section are done with 3ML (cite) and the Bayesian sampler algorithm MultiNest (cite) to create full posterior distributions of the parameters. To visualize the posterior distribution we use ChainConsumer (cite) with the output from MultiNest to create corner plots.
 
 \subsection{Compare PySPI and OSA}
 
@@ -225,32 +225,69 @@ We analyze the SPI data with a band function as spectral model for the same time
 
 \subsection{Compare SPI and GBM}
 
-Next, we analyze the SPI data with PySPI and the GBM data with the GRB analysis within 3ML (cite a paper for this?) for a band function model. Fig. \ref{fig:corner_gbm_pyspi_band} displays the corner plots for these fits, showing that the results for the spectral shape form PySPI and GBM are in agreement. It also shows that the calibration for SPI and GBM are well aligned within only $\approx$ 10\% difference.
+Next, we analyze the SPI data with PySPI and the GBM data with the GRB analysis within 3ML (cite a paper for this?) for a band function model. Fig. \ref{fig:corner_gbm_pyspi_band} displays the corner plots for these fits, demonstrating that the results for the spectral shape from SPI and GBM are in agreement. It also shows that the calibration for SPI and GBM are well aligned within only $\approx$ 10\% difference in this case.
 
 \begin{figure}
   \begin{centering}
     \includegraphics[width=1\linewidth]{figures/pyspi_vs_gbm_band.pdf}
     \label{fig:corner_gbm_pyspi_band}
-    \caption{Corner plot for the SPI fit with PySPI and the GBM fit. In this fit we used a Band function as spectral model.}
+    \caption{Corner plot for the SPI fit with PySPI and the GBM fit. In this fit we used a Band function as spectral model. The spectral shape for the SPI and GBM fits coincide within their uncertainty regions and the normalization is off by $\approx$10\%, which is within the usual calibration offsets of Gamma-Ray space telescopes.}
   \end{centering}
 \end{figure}
 
 \subsection{Joint Fit of SPI and GBM}
 
-The final analysis is a joint fit for the SPI and the GBM data with the physical synchrotron model (see \ref{synch}).
+The final analysis is a joint fit for the SPI and the GBM data with a physical synchrotron model (see \ref{synch}). Fig. \ref{fig:corner_gbm_pyspi_joined_syn} shows the corner plots for the individual and the combined fits. The posterior distribution of the parameters from the GBM and the SPI fit agree within their uncertainty regions and the combined fit reduces the allowed parameter space. The physical synchrotron model was able to fit the data of GBM and SPI well, which is shown with PPC and QQ plots in \ref{appendix}.
 
 \begin{figure}
   \begin{centering}
     \includegraphics[width=1\linewidth]{figures/pyspi_and_gbm_syn.pdf}
     \label{fig:corner_gbm_pyspi_joined_syn}
-    \caption{Corner plot for the SPI fit with PySPI and the GBM fit. In this fit we used a Band function as spectral model.}
+    \caption{Corner plot for the SPI fit with PySPI and the GBM fit. In this fit we used a physical synchrotron model (see \ref{synch}) as spectral model. The results from SPI and GBM agree within their uncertainty region and the combined fit constrains the parameter better than the individual ones.}
   \end{centering}
 \end{figure}
 
 \section{Conclusion}
 
-- Possible to fit physical models to GRB data of SPI and get same parameters as GBM
-- Combined fits reduce available parameter space
-- PySPI can be used to fit all SPI GRBs in the future with different physical models to help distinguishing between them
+We analyzed the data of GRB120711A with the data from INTGRAL/SPI and Fermi/GBM. The results for SPI with PySPI are in agreement with those from the official analysis software, but more constraining. Also the resulting spectral shape for the fits with GBM and SPI data are in agreement and the relative calibration difference between SPI and GBM we construct from the fits is $\approx$ 10\% or less. We show that the GBM as well as the SPI data for GRB120711A can be fitted well with a physical, time dependent synchrotron model and that combining the data in a simultaneous fit improve the parameter constrains.
 
+Generally PySPI can improves the scientific output from SPI for GRBs significantly. Due to a new analysis method, that folds the source model directly into the data space of every SPI detector with the full response of the individual detectors, the results are more constraining than the results with the official analysis software.
+
+\begin{appendix}
+  \section{Model Checking Plots}
+  \label{appendix1}
+  In this section we show a selection of the PPC- and QQ-plots for the simultaneous synchrotron fit to the SPI and GBM data for GRB120711A.
+  \begin{figure}
+    \begin{centering}
+      \includegraphics[width=0.45\linewidth]{figures/n0_ppc.pdf}
+      \includegraphics[width=0.45\linewidth]{figures/n0_qq.pdf}
+      \label{fig:n0_model_check}
+      \caption{PPC (left) and QQ (right) plot for the GBM detector n0.}
+    \end{centering}
+  \end{figure}
+  \begin{figure}
+    \begin{centering}
+      \includegraphics[width=0.45\linewidth]{figures/b0_qq.pdf}
+      \includegraphics[width=0.45\linewidth]{figures/b0_qq.pdf}
+      \label{fig:b0_model_check}
+      \caption{PPC (left) and QQ (right) plot for the GBM detector b0.}
+    \end{centering}
+  \end{figure}
+  \begin{figure}
+    \begin{centering}
+      \includegraphics[width=0.45\linewidth]{figures/low_13_ppc.pdf}
+      \includegraphics[width=0.45\linewidth]{figures/low_13_qq.pdf}
+      \label{fig:low_13_model_check}
+      \caption{PPC (left) and QQ (right) plot for the low energy range of SPI detector 13 (all single events).}
+    \end{centering}
+  \end{figure}
+  \begin{figure}
+    \begin{centering}
+      \includegraphics[width=0.45\linewidth]{figures/psd_13_ppc.pdf}
+      \includegraphics[width=0.45\linewidth]{figures/psd_13_qq.pdf}
+      \label{fig:psd_13_model_check}
+      \caption{PPC (left) and QQ (right) plot for the middle energy range of SPI detector 13 (only PSD events).}
+    \end{centering}
+  \end{figure}
+\end{appendix}
 \end{document}

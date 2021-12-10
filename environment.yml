@@ -9,3 +9,4 @@ dependencies:
       - git+https://github.com/threeML/threeML.git@refs/pull/516/head
       - py-spi==0.9.1
       - chainconsumer
+      - twopc
