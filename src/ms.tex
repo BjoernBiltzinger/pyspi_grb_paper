@@ -164,7 +164,7 @@ The first step in the spectral fitting with OSA is to use only the photo peak re
 
 \subsubsection*{Energy Redistribution Fitting}
 
-The pseudo photon flux data points from the 'Photo Peak Fitting' step, which are no real data points anymore, are fitted with a spectral photon flux model which is convolved with a correction response, which is also available through OSA. This correction response depends on the source position and energy bins that are used and should account for energy dispersion as well as resolution. In this step the energy channels are fitted simultaneously, as it is impossible to incorporate energy dispersion in a way that fits every energy channel individually. This fitting can be done in different spectral fitting software like 3ML or XSPEC. In this work we always used 3ML.
+The pseudo photon flux data points from the 'Photo Peak Fitting' step, which are no real data points anymore, are fitted with a spectral photon flux model which is convolved with a correction response, which is also available through OSA. This correction response depends on the source position and energy bins that are used and should account for energy dispersion as well as resolution. In this step the energy channels are fitted simultaneously, as it is impossible to incorporate energy dispersion in a way that fits every energy channel individually. This fitting can be done in different spectral fitting software like 3ML or XSPEC. In this work we use 3ML.
 
 \subsection{Synchrotron Model}
 \label{synch}
@@ -184,7 +184,7 @@ There exists a strong degeneracy between $B$ and $\gamma_{inj}$, as their combin
 
 \subsection{Model Checking}
 \label{PPC}
-To check if the fit of a model is a good description of the measured data is a very complicated topic and highly debated in the statistics community. Measurements like reduced $\chi^{2}$ use many assumptions, like for example that all the probability distributions in the problem are described as normal distributions, which is definitely not the case here, as the measurement process is a Poisson process. Therefore we decided to use Posterior Predictive Checks (PPCs, see Eq. \ref{eq:ppc}), which use the full posterior of the fit as well as the measurement process to simulate new data and compare them to the observed data.
+To check if the fit of a model is a good description of the measured data is a very complicated topic and highly debated in the statistics community. Measurements like reduced $\chi^{2}$ use many assumptions, like for example that all the probability distributions in the problem are described as normal distributions, which is definitely not the case here, as the measurement process is a Poisson process. Therefore we decided to use Posterior Predictive Checks (PPC) and quantile-quantile (QQ) plots. For the PPCs one simulate new data from the full posterior of the fit as well as the measurement process (see Eq. \ref{eq:ppc}) and compare them to the observed data. QQ plots use the same simualtion process, but instead of comparing the observed data of every energy channel individually to the simulated data, one compares the cumulative counts of the observation and the simulations over energy channels. QQ plots are very sensitive to weak systematic deviations of the model from the data.
 
 \begin{equation}
   \textrm{P}(y^{\textrm{sim}}|y^{\textrm{obs}}) = \int \textrm{P}(y^{\textrm{sim}}|\theta) \textrm{P}(\theta|y^{\textrm{obs}}) \mathrm{d}\theta
@@ -200,8 +200,8 @@ In this work we analyze GRB 120711A, which was a bright, multi pulse GRB with a 
   \begin{centering}
     \includegraphics[width=1\linewidth]{figures/spi_lightcurve_ts.pdf}
     \includegraphics[width=1\linewidth]{figures/gbm_lightcurve_ts.pdf}
-    \label{fig:time_selection}
     \caption{Light curve for GRB120711A.}
+    \label{fig:time_selection}
   \end{centering}
 \end{figure}
 
@@ -217,8 +217,8 @@ We analyze the SPI data with a band function as spectral model for the same time
 \begin{figure}
   \begin{centering}
     \includegraphics[width=1\linewidth]{figures/pyspi_vs_osa_band.pdf}
-    \label{fig:corner_osa_pyspi_band}
     \caption{Corner plot for the SPI fit with PySPI and the official tools. The spectral model in this fit is a band function. It shows, that the results are in agreement, but PySPI can constrain the parameters better.}
+    \label{fig:corner_osa_pyspi_band}
   \end{centering}
 \end{figure}
 
@@ -230,8 +230,8 @@ Next, we analyze the SPI data with PySPI and the GBM data with the GRB analysis 
 \begin{figure}
   \begin{centering}
     \includegraphics[width=1\linewidth]{figures/pyspi_vs_gbm_band.pdf}
-    \label{fig:corner_gbm_pyspi_band}
     \caption{Corner plot for the SPI fit with PySPI and the GBM fit. In this fit we used a Band function as spectral model. The spectral shape for the SPI and GBM fits coincide within their uncertainty regions and the normalization is off by $\approx$10\%, which is within the usual calibration offsets of Gamma-Ray space telescopes.}
+    \label{fig:corner_gbm_pyspi_band}
   \end{centering}
 \end{figure}
 
@@ -242,14 +242,14 @@ The final analysis is a joint fit for the SPI and the GBM data with a physical s
 \begin{figure}
   \begin{centering}
     \includegraphics[width=1\linewidth]{figures/pyspi_and_gbm_syn.pdf}
-    \label{fig:corner_gbm_pyspi_joined_syn}
     \caption{Corner plot for the SPI fit with PySPI and the GBM fit. In this fit we used a physical synchrotron model (see \ref{synch}) as spectral model. The results from SPI and GBM agree within their uncertainty region and the combined fit constrains the parameter better than the individual ones.}
+    \label{fig:corner_gbm_pyspi_joined_syn}
   \end{centering}
 \end{figure}
 
 \section{Conclusion}
 
-We analyzed the data of GRB120711A with the data from INTGRAL/SPI and Fermi/GBM. The results for SPI with PySPI are in agreement with those from the official analysis software, but more constraining. Also the resulting spectral shape for the fits with GBM and SPI data are in agreement and the relative calibration difference between SPI and GBM we construct from the fits is $\approx$ 10\% or less. We show that the GBM as well as the SPI data for GRB120711A can be fitted well with a physical, time dependent synchrotron model and that combining the data in a simultaneous fit improve the parameter constrains.
+We analyzed the data of GRB120711A with the data from INTGRAL/SPI and Fermi/GBM. The results for SPI with PySPI are in agreement with those from the official analysis software, but more constraining. Also the resulting spectral shape for the fits with GBM and SPI data are in agreement and the relative calibration difference between SPI and GBM we conclude from the fits is $\approx$ 10\% or less. We show that the GBM as well as the SPI data for GRB120711A can be fitted well with a physical, time dependent synchrotron model and that combining the data in a simultaneous fit improve the parameter constrains.
 
 Generally PySPI can improves the scientific output from SPI for GRBs significantly. Due to a new analysis method, that folds the source model directly into the data space of every SPI detector with the full response of the individual detectors, the results are more constraining than the results with the official analysis software.
 
@@ -261,32 +261,32 @@ Generally PySPI can improves the scientific output from SPI for GRBs significant
     \begin{centering}
       \includegraphics[width=0.45\linewidth]{figures/n0_ppc.pdf}
       \includegraphics[width=0.45\linewidth]{figures/n0_qq.pdf}
-      \label{fig:n0_model_check}
       \caption{PPC (left) and QQ (right) plot for the GBM detector n0.}
+      \label{fig:n0_model_check}
     \end{centering}
   \end{figure}
   \begin{figure}
     \begin{centering}
       \includegraphics[width=0.45\linewidth]{figures/b0_ppc.pdf}
       \includegraphics[width=0.45\linewidth]{figures/b0_qq.pdf}
-      \label{fig:b0_model_check}
       \caption{PPC (left) and QQ (right) plot for the GBM detector b0.}
+      \label{fig:b0_model_check}
     \end{centering}
   \end{figure}
   \begin{figure}
     \begin{centering}
       \includegraphics[width=0.45\linewidth]{figures/low_13_ppc.pdf}
       \includegraphics[width=0.45\linewidth]{figures/low_13_qq.pdf}
-      \label{fig:low_13_model_check}
       \caption{PPC (left) and QQ (right) plot for the low energy range of SPI detector 13 (all single events).}
+      \label{fig:low_13_model_check}
     \end{centering}
   \end{figure}
   \begin{figure}
     \begin{centering}
       \includegraphics[width=0.45\linewidth]{figures/psd_13_ppc.pdf}
       \includegraphics[width=0.45\linewidth]{figures/psd_13_qq.pdf}
-      \label{fig:psd_13_model_check}
       \caption{PPC (left) and QQ (right) plot for the middle energy range of SPI detector 13 (only PSD events).}
+      \label{fig:psd_13_model_check}
     \end{centering}
   \end{figure}
 \end{appendix}
