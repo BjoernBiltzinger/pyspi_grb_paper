@@ -205,7 +205,7 @@ In this work we analyze GRB 120711A, which was a bright, multi pulse GRB with a 
 
 We analyze the data from the two instruments independently first with the empirical Band function, to check if the results for SPI and GBM are in agreement as well as show a comparison between the fit results with PySPI and the official software tools for GRB analysis within OSA. Then we fit the SPI and GBM data simultaneously with a physical synchrotron model, and show that it can reduce the allowed parameter space significantly, compared to the individual fits. For all GBM and PySPI fits we added effective area correction parameters in the fit, allowing the total effective area of the individual detectors to vary a bit with respect to each other, to account for slightly different calibrations. To do this, we always fix the response of one of the detectors to the normal response of that detectors and fit one parameter for every other detector, which gets multiplied with the response in the fit. We constrain the effective area correction parameters to be between 0.7 and 1.3.
 
-All the fits in this section are done with 3ML \3ML and the Bayesian sampling algorithm MultiNest \multinest to create full posterior distributions of the parameters. To visualize the posterior distribution we use ChainConsumer \chainconsumer with the output from MultiNest to create corner plots.
+All the fits in this section are done with 3ML and the Bayesian sampling algorithm MultiNest to create full posterior distributions of the parameters. To visualize the posterior distribution we use ChainConsumer with the output from MultiNest to create corner plots.
 
 \subsection{Compare PySPI and OSA}
 
