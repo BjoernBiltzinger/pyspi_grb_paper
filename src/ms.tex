@@ -208,6 +208,49 @@ We analyze the data from the two instruments independently first with the empiri
 
 All the fits in this section are done with 3ML \citep{3ML} and the Bayesian sampling algorithm MultiNest \citep{multinest} to create full posterior distributions of the parameters. To visualize the posterior distribution we use ChainConsumer \citep{chainconsumer} with the output from MultiNest to create corner plots.
 
+\subsection{Compare PySPI and OSA}
+
+We analyze the SPI data with a band function as spectral model for the same time interval with PySPI and OSA, to check if the results are in agreement. The two methods are described in \ref{OSA} and \ref{pyspi}. Fig. \ref{fig:corner_osa_pyspi_band} shows the resulting posterior distributions of the fits, displayed as a corner plot. The results for the spectral shape from the two analysis techniques agree within their uncertainty region, but PySPI can constrain the parameters more precise.
+
+\begin{figure}
+  \begin{centering}
+    \includegraphics[width=1\linewidth]{figures/pyspi_vs_osa_band.pdf}
+    \caption{Corner plot for the SPI fit with PySPI and the official tools. The spectral model in this fit is a Band function. It shows, that the results are in agreement, but PySPI can constrain the parameters better.}
+    \label{fig:corner_osa_pyspi_band}
+  \end{centering}
+\end{figure}
+
+
+\subsection{Compare SPI and GBM}
+
+Next, we analyze the SPI data with PySPI and the GBM data with the GRB analysis within 3ML (cite a paper for this?) for a band function model. Fig. \ref{fig:corner_gbm_pyspi_band} displays the corner plots for these fits, demonstrating that the results for the spectral shape from SPI and GBM are in agreement. It also shows that the calibration for SPI and GBM are well aligned within only $\approx$ 10\% difference in this case.
+
+\begin{figure}
+  \begin{centering}
+    \includegraphics[width=1\linewidth]{figures/pyspi_vs_gbm_band.pdf}
+    \caption{Corner plot for the SPI fit with PySPI and the GBM fit. In this fit we used a Band function as spectral model. The spectral shape for the SPI and GBM fits coincide within their uncertainty regions and the normalization is off by $\approx$10\%, which is within the usual calibration offsets of Gamma-Ray space telescopes.}
+    \label{fig:corner_gbm_pyspi_band}
+  \end{centering}
+\end{figure}
+
+\subsection{Joint Fit of SPI and GBM}
+
+The final analysis is a joint fit for the SPI and the GBM data with a physical synchrotron model (see \ref{synch}). Fig. \ref{fig:corner_gbm_pyspi_joined_syn} shows the corner plots for the individual and the combined fits. The posterior distribution of the parameters from the GBM and the SPI fit agree within their uncertainty regions and the combined fit reduces the allowed parameter space. The physical synchrotron model was able to fit the data of GBM and SPI well, which is shown with PPC and QQ plots in \ref{appendix}.
+
+\begin{figure}
+  \begin{centering}
+    \includegraphics[width=1\linewidth]{figures/pyspi_and_gbm_syn.pdf}
+    \caption{Corner plot for the SPI fit with PySPI and the GBM fit. In this fit we used a physical synchrotron model (see \ref{synch}) as spectral model. The results from SPI and GBM agree within their uncertainty region and the combined fit constrains the parameter better than the individual ones.}
+    \label{fig:corner_gbm_pyspi_joined_syn}
+  \end{centering}
+\end{figure}
+
+\section{Conclusion}
+
+We analyzed the data of GRB120711A with the data from INTGRAL/SPI and Fermi/GBM. The results for SPI with PySPI are in agreement with those from the official analysis software, but more constraining. Also the resulting spectral shape for the fits with GBM and SPI data are in agreement and the relative calibration difference between SPI and GBM we conclude from the fits, is $\approx$ 10\% or less. We show that the GBM as well as the SPI data for GRB120711A can be fitted well with a physical, time dependent synchrotron model and that combining the data in a simultaneous fit improves the parameter constrains.
+
+Generally PySPI can improve the scientific output from SPI for GRBs significantly. Due to a new analysis method, that folds the source model directly into the data space of every SPI detector with the full response of the individual detectors, the results are more constraining than the results with the official analysis software.
+
 
 %\bibliographystyle{aasjournal}
 %\bibliography{biblio}
