@@ -70,7 +70,7 @@ This expression will be used in the next paragraph to derive the total likelihoo
 \begin{figure}
     \begin{centering}
         \includegraphics{figures/lightcurve.pdf}
-        \caption{Lightcurve for SPI detector 0 for GRB120711A. The transient source is clearly visible as well as the constant background for the time when the transient is not active.}
+        \caption{Lightcurve for SPI detector 0 for GRB120711A. The transient source is clearly visible as well as the constant background for the time when the transient is not active. The time intervals we use for the independent background observation is marked with the green shaded area.}
         \label{fig:lightcurve}
     \end{centering}
 \end{figure}
@@ -82,23 +82,26 @@ This expression will be used in the next paragraph to derive the total likelihoo
 
 With the defined background treatment, we can construct a Poisson likelihood with a Poisson measurement of background, like given in \ref{eq:likelihood_m_and_b}. Here $\theta$ summarizes all the parameters of the model, $D_{i}$ are the measured counts in the selected active time interval of the transient source, $m_{i}(\theta)$ are the predicted counts from the model evaluated at the parameters $\theta$ and $t_{d}$ is the exposure of the selected active time interval.
 
-\begin{equation}
-	L(\theta, b_{i}|D_{i}, B_{i},t_{d},t_{b}) = \frac{(t_{d}(m_{i}(\theta)+ b_{i}))^{D_{i}}}{D_{i}!}\cdot e^{-t_{d}(m_{i}(\theta)+b_{i})} \frac{(t_{b} b_{i})^{B_{i}}}{B_{i}!}\cdot e^{-t_{b} b_{i}}
+\begin{multline}
+	L(\theta, b_{i}|D_{i}, B_{i},t_{d},t_{b}) = \frac{(t_{d}(m_{i}(\theta)+ b_{i}))^{D_{i}}}{D_{i}!}\cdot \\
+  e^{-t_{d}(m_{i}(\theta)+b_{i})}\frac{(t_{b} b_{i})^{B_{i}}}{B_{i}!} e^{-t_{b} b_{i}}
   \label{eq:likelihood_m_and_b}
-\end{equation}
+\end{multline}
 
-Now we can marginalize over the parameters $b_{i}$, that we are not interested in, which leaves us with equation \ref{eq:likelihood_marg}.
+Now we can marginalize over the parameters $b_{i}$, that we are not interested in and that we have no further information about a priori, despite the fact that they can not be negative, which leaves us with equation \ref{eq:likelihood_marg}.
 
-\begin{equation}
-	L(\theta|D_{i}, B_{i},t_{d},t_{b}) = \int_{0}^{\infty}\textrm{db}_{i}\frac{(t_{d}(m_{i}(\theta)+ b_{i}))^{D_{i}}}{D_{i}!}\cdot e^{-t_{d}(m_{i}(\theta)+b_{i})} \frac{(t_{b} b_{i})^{B_{i}}}{B_{i}!}\cdot e^{-t_{b}b_{i}}
+\begin{multline}
+	L(\theta|D_{i}, B_{i},t_{d},t_{b}) = \int_{0}^{\infty}\textrm{db}_{i}\frac{(t_{d}(m_{i}(\theta)+ b_{i}))^{D_{i}}}{D_{i}!}\cdot\\
+  e^{-t_{d}(m_{i}(\theta)+b_{i})} \frac{(t_{b} b_{i})^{B_{i}}}{B_{i}!} e^{-t_{b}b_{i}}
   \label{eq:likelihood_marg}
-\end{equation}
+\end{multline}
 
 Because there is no easy analytical solution for this integral, one often uses a so-called profiled likelihood as an approximation. For the profiled likelihood we use the fact, that the derivative of the likelihood at its maximum is zero. Therefore one can construct from $\frac{\textrm{dL}}{\textrm{db}_i}=0$ the background rates $b_{i, max}$ that maximize the likelihood for a given model $m_{i}(\theta)$ and observed quantities. Solving $\frac{\textrm{dL}}{\textrm{db}_i}=0$ for b gives equation \ref{eq:bmax}.
-\begin{equation}
-	b_{i,max}(\theta)=\frac{1}{2(t_{b}+t_{d})}(B_{i}+D_{i}-m_{i}(\theta)(t_{b}+t_{d})+\sqrt{(B_{i}+D_{i}+m_{i}(\theta)(t_{b}+t_{d}))^{2}-4m_{i}(\theta)D_{i}(t_{d}-t_{b})}
+\begin{multline}
+	b_{i,max}(\theta)=\frac{1}{2(t_{b}+t_{d})}(B_{i}+D_{i}-m_{i}(\theta)(t_{b}+t_{d})+\\
+  \sqrt{(B_{i}+D_{i}+m_{i}(\theta)(t_{b}+t_{d}))^{2}-4m_{i}(\theta)D_{i}(t_{d}-t_{b})}
   \label{eq:bmax}
-\end{equation}
+\end{multline}
 
 These values can then be substituted in the likelihood \ref{eq:likelihood_m_and_b} to eliminate the $b_{i}$ dependency. This approximation gives the exact solution for the maximum of the likelihood, for likelihood values close to the maximum, the assumption is that most of the likelihood in the integrand in \ref{eq:likelihood_marg} is in a small area around $b_{i,max}$. This assumption is used in many spectral analyses and works very well as long as one does not have too few counts in the background observation \footnote{For a derivation see https://giacomov.github.io/Bias-in-profile-poisson-likelihood/}.
 
@@ -124,7 +127,7 @@ Since shortly after the start of INTEGRAL, it is known that there are spurious e
 \begin{figure}
     \begin{centering}
         \includegraphics{figures/electronic_noise.pdf}
-        \caption{Count spectrum for detector 0 integrated over 1000 seconds. One can clearly see the feature in the Non-PSD events at 1.5 MeV that is not visible in the PSD events.}
+        \caption{Count spectrum for detector 0 integrated over 1000 seconds. The Non-PSD event count spectrum is drawn in purple and the PSD events in grey. One can clearly see the feature in the Non-PSD events at 1.5 MeV (green shaded area) that is not visible in the PSD events.}
         \label{fig:electronic}
     \end{centering}
 \end{figure}
@@ -199,7 +202,7 @@ In this work we analyze GRB 120711A, which was a bright, multi pulse GRB with a 
   \begin{centering}
     \includegraphics[width=1\linewidth]{figures/spi_lightcurve_ts.pdf}
     \includegraphics[width=1\linewidth]{figures/gbm_lightcurve_ts.pdf}
-    \caption{Light curve for GRB120711A.}
+    \caption{Light curve for GRB120711A in one GBM and one SPI detector. The green shaded area marks the time intervals used for the independent background observation and the blue shaded area is the active time interval used in the fit.}
     \label{fig:time_selection}
   \end{centering}
 \end{figure}
@@ -260,7 +263,7 @@ Generally PySPI can improve the scientific output from SPI for GRBs significantl
     \begin{centering}
       \includegraphics[width=0.45\linewidth]{figures/n0_ppc.pdf}
       \includegraphics[width=0.45\linewidth]{figures/n0_qq.pdf}
-      \caption{PPC (left) and QQ (right) plot for the GBM detector n0.}
+      \caption{PPC (left) and QQ (right) plot for the GBM detector n0. The green and purple shaded area are the one and two sigma contours. In the PPC plots the grey curve is the detected count spectrum and in the QQ plots the expected 1:1 relation between the cumulative model and observed counts.}
       \label{fig:n0_model_check}
     \end{centering}
   \end{figure}
@@ -268,7 +271,7 @@ Generally PySPI can improve the scientific output from SPI for GRBs significantl
     \begin{centering}
       \includegraphics[width=0.45\linewidth]{figures/b0_ppc.pdf}
       \includegraphics[width=0.45\linewidth]{figures/b0_qq.pdf}
-      \caption{PPC (left) and QQ (right) plot for the GBM detector b0.}
+      \caption{PPC (left) and QQ (right) plot for the GBM detector b0. The green and purple shaded area are the one and two sigma contours. In the PPC plots the grey curve is the detected count spectrum and in the QQ plots the expected 1:1 relation between the cumulative model and observed counts.}
       \label{fig:b0_model_check}
     \end{centering}
   \end{figure}
@@ -276,15 +279,15 @@ Generally PySPI can improve the scientific output from SPI for GRBs significantl
     \begin{centering}
       \includegraphics[width=0.45\linewidth]{figures/low_13_ppc.pdf}
       \includegraphics[width=0.45\linewidth]{figures/low_13_qq.pdf}
-      \caption{PPC (left) and QQ (right) plot for the low energy range of SPI detector 13 (all single events).}
+      \caption{PPC (left) and QQ (right) plot for the low energy range of SPI detector 13 (all single events). The green and purple shaded area are the one and two sigma contours. In the PPC plots the grey curve is the detected count spectrum and in the QQ plots the expected 1:1 relation between the cumulative model and observed counts.}
       \label{fig:low_13_model_check}
     \end{centering}
   \end{figure}
-  \begin{figure}[h]
+  \begin{figure}[h]9
     \begin{centering}
       \includegraphics[width=0.45\linewidth]{figures/psd_13_ppc.pdf}
       \includegraphics[width=0.45\linewidth]{figures/psd_13_qq.pdf}
-      \caption{PPC (left) and QQ (right) plot for the middle energy range of SPI detector 13 (only PSD events).}
+      \caption{PPC (left) and QQ (right) plot for the middle energy range of SPI detector 13 (only PSD events). The green and purple shaded area are the one and two sigma contours. In the PPC plots the grey curve is the detected count spectrum and in the QQ plots the expected 1:1 relation between the cumulative model and observed counts.}
       \label{fig:psd_13_model_check}
     \end{centering}
   \end{figure}

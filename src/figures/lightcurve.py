@@ -32,6 +32,9 @@ axis = f.axes[0]
 axis.get_lines()[0].set_color(color1)
 axis.collections[0].set_color(color3)
 axis.collections[1].set_color(color3)
+axis.get_lines()[0].set_label(None)
+axis.collections[0].set_label(None)
+axis.collections[1].set_label(None)
 
 axis.legend()
 

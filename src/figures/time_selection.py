@@ -72,10 +72,10 @@ x, y = lines[0].get_xydata().T
 ax.plot(x,y, color=color1, label="Light Curve")
 active_mask = np.logical_and(x>=ts.time_series.time_intervals.absolute_start,
                              x<=ts.time_series.time_intervals.absolute_stop)
-ax.fill_between(x[active_mask], y[active_mask], 0, color=color4, alpha=0.4, label="Selection")
+ax.fill_between(x[active_mask], y[active_mask], 0, color=color4, alpha=0.4)#, label="Selection")
 bkg_mask = np.logical_and(x>=ts.time_series.bkg_intervals[0].start,
                           x<=ts.time_series.bkg_intervals[0].stop)
-ax.fill_between(x[bkg_mask], y[bkg_mask], 0, color=color3, alpha=0.4, label="Bkg. Selection")
+ax.fill_between(x[bkg_mask], y[bkg_mask], 0, color=color3, alpha=0.4)#, label="Bkg. Selection")
 bkg_mask = np.logical_and(x>=ts.time_series.bkg_intervals[1].start,
                           x<=ts.time_series.bkg_intervals[1].stop)
 ax.fill_between(x[bkg_mask], y[bkg_mask], 0, color=color3, alpha=0.4)
@@ -94,13 +94,13 @@ x, y = lines[0].get_xydata().T
 ax2.plot(x,y, color=color1, label="Light Curve")
 active_mask = np.logical_and(x>=tsb.time_series.time_intervals.absolute_start,
                              x<=tsb.time_series.time_intervals.absolute_stop)
-ax2.fill_between(x[active_mask], y[active_mask], 0, color=color4, alpha=0.4, label="Selection")
+ax2.fill_between(x[active_mask], y[active_mask], 0, color=color4, alpha=0.4)#, label="Selection")
 bkg_mask = np.logical_and(x>=tsb.time_series.bkg_intervals[0].start,
                           x<=tsb.time_series.bkg_intervals[0].stop)
 ax2.fill_between(x[bkg_mask], y[bkg_mask], 0, color=color3, alpha=0.4)
 bkg_mask = np.logical_and(x>=tsb.time_series.bkg_intervals[1].start,
                           x<=tsb.time_series.bkg_intervals[1].stop)
-ax2.fill_between(x[bkg_mask], y[bkg_mask], 0, color=color3, alpha=0.4, label="Bkg. Selection")
+ax2.fill_between(x[bkg_mask], y[bkg_mask], 0, color=color3, alpha=0.4)#, label="Bkg. Selection")
 ax2.legend()
 ax2.set_title("SPI detector 0")
 ax2.set_xlabel("Time (s)")
