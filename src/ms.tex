@@ -149,6 +149,65 @@ PySPI can construct a plugin for the Multi-Mission Maximum Likelihood framework 
 
 PySPI is an open source software, which is publicly available on GitHub (cite JOSS). There is also a documentation, that shows how to use it. \footnote{For more information about PySPI see pyspi.readthedocs.io/}
 
+\subsection{OSA}
+\label{OSA}
+
+As we are introducing a new analysis software in this work, we want to compare it to the existing analysis software, to check if the results are in agreement. We shortly summarize the official analysis tools for GRB analysis, which are part of the INTEGRAL Offline Scientific Analysis (OSA) software. \citep{osa}
+
+Analyzing GRB data from SPI with the OSA tools is a multistep process. The first steps are basic and cover selecting the science window with the GRB, the time intervals for active time and background time as well as the energy bins for the analysis. After that one can either find the location of the GRB with SPIROS, i.e. an iterative source removal algorithm for SPI data, or set it manually, if it is already known. The next steps concern the spectral fitting, which is done in an other two-step procedure, which will be called 'Photo Peak Fitting' and 'Energy Redistribution Fitting' hereafter.
+
+\subsubsection*{Photo Peak Fitting}
+
+The first step in the spectral fitting with OSA is to use only the photo peak response of the detectors. These responses depend on the source position, as this defines for example the absorption by the mask. With these responses and the measured data in the individual SPI detectors, taking into account the different background rates, a photon flux is fitted individually per energy channel. These pseudo photon fluxes are not the final result, as up to this point energy dispersion and detector energy resolution was ignored.
+
+\subsubsection*{Energy Redistribution Fitting}
+
+The pseudo photon flux data points from the 'Photo Peak Fitting' step, which are no real data points anymore, are fitted with a spectral photon flux model which is convolved with a correction response, which is also available through OSA. This correction response depends on the energy bins that are used and should account for energy dispersion as well as resolution. In this step the energy channels are fitted simultaneously, as it is impossible to incorporate energy dispersion in a way that fits every energy channel individually. This fitting can be done in different spectral fitting software. In this work we use 3ML.
+
+\subsection{Synchrotron Model}
+\label{synch}
+We use pynchrotron to calculate the spectrum from a physical, time dependent spectral synchrotron model. This model was previously used to successfully fit many single pulse GRBs with GBM in \citet{synch}, which also includes a detailed description of the model. Here we only want to summarize the main points shortly.
+
+The core of the model is the assumption of some generic acceleration mechanism, that constantly produces an electron spectrum with a power law shape $N(\gamma )\propto \gamma^{-p}$ between $\gamma_{inj}$ and $\gamma_{max}$. These electrons are cooled via synchrotron cooling in a magnetic field and produce radiation in this process. The resulting photon spectrum is the sum of the photon spectra at every time step in the cooling process and is defined by five quantities:
+
+\begin{enumerate}
+	\item Magnetic field strength $B$
+  \item Lower boundary of the injected electron spectrum $\gamma_{inj}$
+  \item Upper boundary of the injected electron spectrum $\gamma_{max}$
+  \item Slope of the injected electron spectrum $p$
+  \item Characteristic Lorentz factor the electrons cool to $\gamma_{cool}$
+\end{enumerate}
+
+There exists a strong degeneracy between $B$ and $\gamma_{inj}$, as their combination sets the peak of the photon spectrum. Therefore one usually fixes $\gamma_{inj}=10^{5}$ and only fits for $B$. It is important to keep in mind, that the results for $\gamma_{max}$ and $\gamma_{cool}$ are determined relative to the fixed $\gamma_{inj}$.
+
+\subsection{Model Checking}
+\label{PPC}
+To check if the fit of a model is a good description of the measured data is a very complicated topic and highly debated in the statistics community. Measurements like reduced $\chi^{2}$ use many assumptions, like for example that all the probability distributions in the problem are described as normal distributions, which is not the case here, as the measurement process is a Poisson process. Therefore we decided to use Posterior Predictive Checks (PPC) and Quantile-Quantile (QQ) plots. For the PPCs one simulate new data from the full posterior of the fit as well as the measurement process (see Eq. \ref{eq:ppc}) and compare them to the observed data. QQ plots use the same simualtion process, but instead of comparing the observed data of every energy channel individually to the simulated data, one compares the cumulative counts of the observation and the simulations over energy channels. QQ plots are very sensitive to weak systematic deviations of the model from the data. \citep{QQ,ppc}
+
+\begin{equation}
+  \textrm{P}(y^{\textrm{sim}}|y^{\textrm{obs}}) = \int \textrm{P}(y^{\textrm{sim}}|\theta) \textrm{P}(\theta|y^{\textrm{obs}}) \mathrm{d}\theta
+  \label{eq:ppc}
+\end{equation}
+\noindent
+Here $y^{\textrm{obs}}$ are the observed data, $\textrm{P}(\theta|y^{\textrm{obs}})$ is the posterior distribution of the model parameters $\theta$ given the observed data, $\textrm{P}(y^{\textrm{sim}}|\theta)$ is the probability of new data given the parameters of the model and $y^{\textrm{sim}}$ are the simulated data. These simulated data are then compared to the observed data and allow for a visual check, whether the posterior distributions of the fit together with the measuring process can reproduce the data.
+\section{Analysis}
+
+In this work we analyze GRB 120711A, which was a bright, multi pulse GRB with a precursor and a long emission period of $\approx$100 seconds. It was detected with SPI and GBM. We only look at one time slice with a duration of 10 seconds around the highest peak in the light curves (see Fig. \ref{fig:time_selection}).
+
+\begin{figure}
+  \begin{centering}
+    \includegraphics[width=1\linewidth]{figures/spi_lightcurve_ts.pdf}
+    \includegraphics[width=1\linewidth]{figures/gbm_lightcurve_ts.pdf}
+    \caption{Light curve for GRB120711A.}
+    \label{fig:time_selection}
+  \end{centering}
+\end{figure}
+
+
+We analyze the data from the two instruments independently first with the empirical Band function, to check if the results for SPI and GBM are in agreement as well as show a comparison between the fit results with PySPI and the official software tools for GRB analysis within OSA. Then we fit the SPI and GBM data simultaneously with a physical synchrotron model, and show that it can reduce the allowed parameter space significantly, compared to the individual fits. For all GBM and PySPI fits we added effective area correction parameters in the fit, allowing the total effective area of the individual detectors to vary a bit with respect to each other, to account for slightly different calibrations. To do this, we always fix the response of one of the detectors to the normal response of that detectors and fit one parameter for every other detector, which gets multiplied with the response in the fit. We constrain the effective area correction parameters to be between 0.7 and 1.3.
+
+All the fits in this section are done with 3ML \citep{3ML} and the Bayesian sampling algorithm MultiNest \citep{multinest} to create full posterior distributions of the parameters. To visualize the posterior distribution we use ChainConsumer \citep{chainconsumer} with the output from MultiNest to create corner plots.
+
 
 %\bibliographystyle{aasjournal}
 %\bibliography{biblio}
