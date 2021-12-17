@@ -69,7 +69,7 @@ fig, ax = plt.subplots(1,1,sharex=True)
 
 lines = f_gbm.axes[0].get_lines()
 x, y = lines[0].get_xydata().T
-ax.plot(x,y, color=color1, label="Light Curve")
+ax.plot(x,y, color=color1)
 active_mask = np.logical_and(x>=ts.time_series.time_intervals.absolute_start,
                              x<=ts.time_series.time_intervals.absolute_stop)
 ax.fill_between(x[active_mask], y[active_mask], 0, color=color4, alpha=0.4)#, label="Selection")
@@ -91,7 +91,7 @@ fig, ax2 = plt.subplots(1,1,sharex=True)
 
 lines = f_spi.axes[0].get_lines()
 x, y = lines[0].get_xydata().T
-ax2.plot(x,y, color=color1, label="Light Curve")
+ax2.plot(x,y, color=color1)
 active_mask = np.logical_and(x>=tsb.time_series.time_intervals.absolute_start,
                              x<=tsb.time_series.time_intervals.absolute_stop)
 ax2.fill_between(x[active_mask], y[active_mask], 0, color=color4, alpha=0.4)#, label="Selection")
