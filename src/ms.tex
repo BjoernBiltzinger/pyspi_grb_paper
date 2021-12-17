@@ -250,9 +250,45 @@ The final analysis is a joint fit for the SPI and the GBM data with a physical s
 We analyzed the data of GRB120711A with the data from INTGRAL/SPI and Fermi/GBM. The results for SPI with PySPI are in agreement with those from the official analysis software, but more constraining. Also the resulting spectral shape for the fits with GBM and SPI data are in agreement and the relative calibration difference between SPI and GBM we conclude from the fits, is $\approx$ 10\% or less. We show that the GBM as well as the SPI data for GRB120711A can be fitted well with a physical, time dependent synchrotron model and that combining the data in a simultaneous fit improves the parameter constrains.
 
 Generally PySPI can improve the scientific output from SPI for GRBs significantly. Due to a new analysis method, that folds the source model directly into the data space of every SPI detector with the full response of the individual detectors, the results are more constraining than the results with the official analysis software.
+\begin{appendix}
+  \section{Model Checking Plots}
+  \label{appendix1}
+  In this section we show a selection of the PPC- and QQ-plots for the simultaneous synchrotron fit to the SPI and GBM data for GRB120711A.
+  \begin{figure}[h]
+    \begin{centering}
+      \includegraphics[width=0.45\linewidth]{figures/n0_ppc.pdf}
+      \includegraphics[width=0.45\linewidth]{figures/n0_qq.pdf}
+      \caption{PPC (left) and QQ (right) plot for the GBM detector n0.}
+      \label{fig:n0_model_check}
+    \end{centering}
+  \end{figure}
+  \begin{figure}[h]
+    \begin{centering}
+      \includegraphics[width=0.45\linewidth]{figures/b0_ppc.pdf}
+      \includegraphics[width=0.45\linewidth]{figures/b0_qq.pdf}
+      \caption{PPC (left) and QQ (right) plot for the GBM detector b0.}
+      \label{fig:b0_model_check}
+    \end{centering}
+  \end{figure}
+  \begin{figure}[h]
+    \begin{centering}
+      \includegraphics[width=0.45\linewidth]{figures/low_13_ppc.pdf}
+      \includegraphics[width=0.45\linewidth]{figures/low_13_qq.pdf}
+      \caption{PPC (left) and QQ (right) plot for the low energy range of SPI detector 13 (all single events).}
+      \label{fig:low_13_model_check}
+    \end{centering}
+  \end{figure}
+  \begin{figure}[h]
+    \begin{centering}
+      \includegraphics[width=0.45\linewidth]{figures/psd_13_ppc.pdf}
+      \includegraphics[width=0.45\linewidth]{figures/psd_13_qq.pdf}
+      \caption{PPC (left) and QQ (right) plot for the middle energy range of SPI detector 13 (only PSD events).}
+      \label{fig:psd_13_model_check}
+    \end{centering}
+  \end{figure}
+\end{appendix}
 
-
-%\bibliographystyle{aasjournal}
-%\bibliography{biblio}
+\bibliographystyle{aasjournal}
+\bibliography{biblio}
 
 \end{document}
