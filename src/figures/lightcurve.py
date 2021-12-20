@@ -37,5 +37,6 @@ axis.collections[0].set_label(None)
 axis.collections[1].set_label(None)
 
 axis.legend()
+axis.get_legend().remove()
 
 f.savefig("lightcurve.pdf")
