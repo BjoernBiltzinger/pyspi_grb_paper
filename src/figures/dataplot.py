@@ -109,8 +109,8 @@ dets = ["n0","n1","n2","n4","b0"]
 sls1 = []
 tss1 = []
 for det in dets:
-    tte_file = "/home/bjorn/Downloads/glg_tte_{}_bn120711115_v00.fit".format(det)
-    rsp2_file="/home/bjorn/Downloads/glg_cspec_{}_bn120711115_v00.rsp2".format(det)
+    tte_file = "gbmfiles/glg_tte_{}_bn120711115_v00.fit".format(det)
+    rsp2_file="gbmfiles/glg_cspec_{}_bn120711115_v00.rsp2".format(det)
     ts = TimeSeriesBuilder.from_gbm_tte('gbm{}'.format(det), tte_file, rsp2_file,poly_order=0)
     ts.set_active_time_interval(active_time_gbm)
     ts.set_background_interval(background_time_interval_1_gbm, background_time_interval_2_gbm)
