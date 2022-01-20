@@ -10,3 +10,4 @@ dependencies:
       - py-spi==0.9.1
       - chainconsumer
       - git+https://github.com/BjoernBiltzinger/twopc@paper_version
+      - git+https://github.com/BjoernBiltzinger/pynchrotron@peaknorm

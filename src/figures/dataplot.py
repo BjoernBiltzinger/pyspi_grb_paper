@@ -4,7 +4,7 @@ from pyspi.utils.response.spi_response import ResponseRMFGenerator
 from pyspi.utils.response.spi_drm import SPIDRM
 from pyspi.utils.livedets import get_live_dets
 from pyspi.SPILike import SPILikeGRB
-
+import pynchrotron
 import numpy as np
 import matplotlib.pyplot as plt
 
