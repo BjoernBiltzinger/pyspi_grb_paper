@@ -124,7 +124,7 @@ for det in dets:
     tss1.append(ts)
 
 from threeML import load_analysis_results
-res_both = load_analysis_results("/home/bjorn/Downloads/result_both3_syn_grb.fits")
+res_both = load_analysis_results("results/result_both3_syn_grb.fits")
 datalist = DataList(*spilikes_sgl, *spilikes_sgl2, *spilikes_psd, *sls1)
 ba_gbm_band_1 = BayesianAnalysis(res_both.optimized_model, datalist)
 for i, s in enumerate(sls1):
