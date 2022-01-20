@@ -30,7 +30,6 @@ model1 = Model(ps1)
 
 
 e = np.geomspace(10,5000, 1000)
-fig, ax = plt.subplots()
 vals_spi = np.zeros((num_samples, len(e)))
 for i, s in enumerate(samples_sel_spi):
     band1.K = s[0]
