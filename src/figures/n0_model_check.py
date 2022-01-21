@@ -15,7 +15,7 @@ f = p.detectors["gbmn0"].plot(
     bkg_subtract=False,
     levels=[95,68],
     colors=[color2, color3],
-    lc=color1)
+    lc=color4)
 
 f.savefig("n0_ppc.pdf")
 
@@ -23,7 +23,7 @@ f = p.detectors["gbmn0"].plot_qq(
     channel_energies=[],
     levels=[95,68],
     colors=[color2, color3],
-    center_color=color1
+    center_color=color4
 )
 
 f.savefig("n0_qq.pdf")
