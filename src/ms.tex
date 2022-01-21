@@ -5,12 +5,11 @@
 %\usepackage{caption}
 %\usepackage{subcaption}
 \usepackage{float}
-%\usepackage[pdftex]{xcolor}
-%\definecolor{citecolor}{HTML}{195D95}
+
 
 %\usepackage{natbib}
 % Begin!
-
+\def\fdg{\hbox{$.\!\!^\circ$}}          % Fractions of degrees
 \begin{document}
 
 % Title
@@ -37,8 +36,8 @@
 %\label{firstpage}
 % Abstract with filler text
 \abstract{
-INTEGRAL/SPI is a coded mask instrument observing in the keV to MeV energy range, which covers the peak of the $\nu F\nu$ spectrum of most Gamma-Ray Bursts (GRBs). For the energy range between $\approx$ 10 keV to $\approx$ 10 MeV, Fermi/GBM has been the primary instrument for analyzing GRBs over the last 15 years. Herein, we show that SPI, covering a similar energy range, can give equivalently constraining results if we use an advanced analysis method. Also, combining the data of both instruments reduces the allowed parameter space. The main advantage of SPI as compared to GBM is the energy resolution of $\approx$ 0.2\% at 1.3 MeV compared to $\approx$ 10\% for GBM. Therefore, it is an ideal instrument to precisely measure the curvature of the spectrum. This is important, as it has been shown in recent years that one has to fit physical models to GRB data to obtain more insights into their still unknown emission mechanism and the curvature of the peak is unique to the different physical models.
-To fit physical models to SPI GRB data and get the maximal amount of information from the data, we developed a new analysis software {\tt PySPI}. We apply these new techniques to GRB 120711A in order to validate and showcase {\tt PySPI}'s capabilities. We show that {\tt PySPI} improves the analysis of SPI GRB data compared to the official analysis software. In addition, we demonstrate that the GBM and the SPI data of this GRB can be fitted well with a physical synchrotron model. This evinces that SPI can play an important role in GRB model fitting.
+INTEGRAL/SPI is a coded mask instrument observing in the keV to MeV energy range, which covers the peak of the $\nu F\nu$ spectrum of most Gamma-Ray Bursts (GRBs). Since its launch, Fermi/GBM has been the primary instrument for analyzing GRBs in the energy range between $\approx$ 10 keV to $\approx$ 10 MeV. Herein, we show that SPI, covering a similar energy range, can give equivalently constraining results if we use an advanced analysis method. Also, combining the data of both instruments reduces the allowed parameter space. The main advantage of SPI as compared to GBM is the energy resolution of $\approx$ 0.2\% at 1.3 MeV compared to $\approx$ 10\% for GBM. Therefore, it is an ideal instrument to precisely measure the curvature of the spectrum. This is important, as it has been shown in recent years that one has to fit physical models to GRB data to obtain more insights into their still unknown emission mechanism and the curvature of the peak is unique to the different physical models.
+To fit physical models to SPI GRB data and get the maximal amount of information from the data, we developed a new analysis software {\tt PySPI}. We apply these new techniques to GRB 120711A in order to validate and showcase {\tt PySPI}'s capabilities. We show that {\tt PySPI} improves the analysis of SPI GRB data compared to the {\tt OSA} analysis. In addition, we demonstrate that the GBM and the SPI data of this GRB can be fitted well with a physical synchrotron model. This evinces that SPI can play an important role in GRB model fitting.
 }
 
 %\abstract{In recent years it has been shown that one has to fit physical models to Gamma-Ray Burst (GRB) data to obtain more insights into their emission mechanism. For the energy range between $\approx$ 10 keV to $\approx$ 10 MeV, Fermi/GBM has been the main instrument to analyze GRBs in the last 15 years. Here, we show how to add INTEGRAL/SPI to this analysis. SPI covers a similar energy range and has a very good energy resolution of $\approx$ 0.2\% at 1.3 MeV compared to $\approx$ 10\% for GBM. Therefore, it is an ideal instrument to measure precisely the curvature of the spectrum. We present {\tt PySPI}, a new analysis software that we developed to analyze GRB data from SPI. To demonstrate its usage and capabilities, we apply it to GRB 120711A. We show that {\tt PySPI} improves the analysis of SPI GRB data compared to the official analysis software. In addition, we demonstrate that the GBM and the SPI data of this GRB can be fitted well with a  synchrotron model, and that combining both instruments reduces the allowed parameter space. This evinces that SPI can play an important role in GRB model fitting.}
@@ -52,7 +51,7 @@ To fit physical models to SPI GRB data and get the maximal amount of information
 
 Gamma-Ray Bursts (GRBs) are short transient bursts of $X-$ and $\gamma$-rays \citep{Klebesadel+1973}, with a typical active time range between a few ms and few hundred seconds for the prompt phase.
 %which is mostly observed in $X$- and $\gamma$-rays.
-After the prompt emission, there is a long-lasting afterglow phase when the ejecta interact with the interstellar medium \citep{MeszarosRees1997, afterglow}. GRBs are classified into two groups depending on the duration of the prompt emission \citep{shortlong}. Long GRBs (prompt phase $\gtrapprox$ 2s) have been associated with the collapse of massive stars \citep{SN1, Hjorth+2003, SN2}, whereas short GRBs are  caused by mergers of compact objects, like neutron stars \citep{Eichler+1989, gw}. In both cases it is consensus, that the progenitor events of GRBs produce jetted relativistic outflows, which consists of several shells with different velocities, resulting in internal shell collisions \citep{ReesMeszaros1994, Mochkovitch+1995}.
+After the prompt emission, there is a long-lasting afterglow phase when the ejecta interact with the interstellar medium \citep{MeszarosRees1997, afterglow}. GRBs are classified into two groups depending on the duration of the prompt emission \citep{shortlong}. Long GRBs (prompt phase $\gtrapprox$ 2s) have been associated with the collapse of massive stars \citep{SN1, Hjorth+2003, SN2}, whereas short GRBs are  caused by mergers of compact objects, like neutron stars \citep{Eichler+1989, gw}. In both cases it is consensus, that the progenitor events of GRBs produce jetted relativistic outflows, which consist of several shells with different velocities, resulting in internal shell collisions \citep{ReesMeszaros1994, Mochkovitch+1995}.
 %\citep{gamma-ray-burst}. Edo Berger is an observer, and has never worked on shocks, so I (jcg) wouldn't cite this review
 
 The true physical mechanism(s) responsible for the prompt emission of GRBs is a heavily debated topic \citep[for a review see][]{KumarZhang2015}. %\citep[for a review see][]{gamma-ray-burst}. see above
@@ -60,9 +59,9 @@ Two of the possible emission mechanisms are synchrotron \citep[e.g.][]{syn_shell
 
 Apart from the model used, also the data play an important role. Earlier analysis has shown, that the shape of the spectrum around the peak is a decisive feature. Therefore, we make use of INTEGTRAL/SPI which provides a factor 100 better spectral resolution in the 0.1--1 MeV band compared to the frequently used Fermi/GBM instrument.
 
-The spectrometer SPI, is one of the instruments onboard of the INTErnational Gamma-Ray Astrophysics Laboratory \citep[INTEGRAL;][]{integral} satellite, that was launched in 2002. It is a coded mask instrument, with a fully coded field-of-view of 16 degrees, that covers an energy range between 20 keV and 8 MeV. The energy resolution allows the identification of fine features, like nuclear decay lines \citep{spi_main}. In the case of GRBs this energy resolution gives us the possibility to determine the curvature of the spectra with unprecedented precision.
+The spectrometer SPI is one of the instruments onboard of the INTErnational Gamma-Ray Astrophysics Laboratory \citep[INTEGRAL;][]{integral} satellite, that was launched in 2002. It is a coded mask instrument, with a fully coded field-of-view of 16 degrees, that covers an energy range between 20 keV and 8 MeV. The energy resolution allows the identification of fine features, like nuclear decay lines \citep{spi_main}. In the case of GRBs this energy resolution gives us the possibility to determine the curvature of the spectra with unprecedented precision.
 
-The standard analysis of SPI GRB data is done within the INTEGRAL Offline Scientific Analysis ({\tt OSA}) software \citep{osa}. This uses a two step method of first using only the photo peak response to incorporate the mask pattern on the detectors and in a second step applying an energy redistribution correction response. This method is used in several works which fitted empirical GRB models to the SPI data \citep[e.g.][]{spi_grb1,Grebenev-2007}. \citet{spi_grb2} used a different approach to create a spectral catalogue of INTEGRAL GRBs, with a joined analysis of SPI and the Imager on Board the INTEGRAL Satellite (IBIS). They construct a response for every SPI detector and forward model the photon model directly into the data space of every detector, which is similar to our approach in this work. But they build the response simply according to the exposed fraction of the detector for the GRB direction and treat the background differently than we do in this work.
+The standard analysis of SPI GRB data is done within the INTEGRAL Offline Scientific Analysis ({\tt OSA}) software \citep{osa}. This uses a two step method of first using only the photo peak response to incorporate the mask pattern on the detectors and in a second step applying an energy redistribution correction response. This method is used in several works which fitted empirical GRB models to the SPI data \citep{Malaguti-2003, Mereghetti-2003, Mereghetti-2003.2, Kienlin-2003, Kienlin-2003.2,Beckmann-2004, Moran-2005, Filliatre-2005.1, Filliatre-2005.2, McBreen-2006, Grebenev-2007, McGlynn-2008, Foley-2008, McGlynn-2009, Martin-Carrillo-2014}. \citet{Bosnjak-2014} used a different approach to create a spectral catalogue of INTEGRAL GRBs, with a joined analysis of SPI and the Imager on Board the INTEGRAL Satellite (IBIS). They construct a response for every SPI detector and forward model the photon model directly into the data space of every detector, which is similar to our approach in this work. But they build the response simply according to the exposed fraction of the detector for the GRB direction and use background subtracted data for their fits.
 %Several works have used SPI data for GRBs \citep{spi_grb1, spi_grb2}, but all of them fitted empirical models like the Band function.
 We developed a pure python-based analysis tool {\tt PySPI} in order to provide an easy to use data reduction and fitting tool while getting the maximal amount of information out of the data to progress to fitting physical models. This improves the analysis methods in general, because we use the full response to forward model the expected spectra to the native SPI data space in the correct way and offers an easy to install and use interface.
 %In this paper we introduce the new analysis method and show that we can fit complicated physical GRB models to the SPI data
@@ -81,7 +80,7 @@ This work is structured as follows: In Sec. \ref{methods} we summarize the diffe
 
 \section{SPI GRB Analysis Methods}
 \label{methods}
-All gamma-ray instruments suffer from energy dispersion and finite energy resolution. The information about this is encoded in the response matrix, that gives the probability of a photon with a certain energy and starting position on the sky to be detected in one of electronic channels of the detector. These response matrices are usually not invertible, and therefore we have to forward fold the photon spectrum trough the response matrix into the data space of the detected counts and compare them, using the correct likelihood. This is a general statement that also applies to SPI. In the following subsection we will first cover some general concepts for SPI and then the official analysis software method as well as the method within our new analysis tool {\tt PySPI}. The main difference is that the method in {\tt PySPI} is a full forward folding method, fulfilling the statement above, which results in maximising the information we can get from the data in the analysis.
+All gamma-ray instruments suffer from energy dispersion and finite energy resolution. The information about this is encoded in the response matrix, that gives the probability of a photon with a certain energy and starting position on the sky to be detected in one of electronic channels of the detector. These response matrices are usually not invertible, and therefore we have to forward fold the photon spectrum trough the response matrix into the data space of the detected counts and compare them, using the correct likelihood. This is a general statement that also applies to SPI. In the following subsection we will first cover some general concepts for SPI and then the standard analysis method within {\tt OSA} as well as the method within our new analysis tool {\tt PySPI}. The main difference is that the method in {\tt PySPI} is a full forward folding method, fulfilling the statement above, which results in maximising the information we can get from the data in the analysis.
 
 \subsection{Response}
 \label{response}
@@ -102,7 +101,7 @@ These effective areas were calculated for 51 photon energies and on a 0.5 degree
 \subsection{Electronic Noise}
 \label{electronic}
 %Since shortly after the start of INTEGRAL, it is known that there are spurious events in the SPI data around 1.5 MeV.
-According to \citet{spi_electronic_noise} there are spurious events in the SPI data, which are photons with small energy (<100 keV) that get detected at a higher energy due to saturation of the Analog Front-End Electronics (AFEE) electronics by previous high energy deposition. It is also known, that these spurious events do not show up in events with a detection also in the Pulse Shape Discriminator (PSD) electronics. The reason for this is that the PSD electronics have a low energy threshold of $\approx$ 450 keV (the exact value has been changed a few times during the mission) \citep{spi_electronic_noise}. Therefore only events that deposit more than this low energy threshold in the Germanium crystal can trigger this electronic chain, which eliminates the <100 keV events that are detected at the wrong energies by the AFEE electronics. In Fig. \ref{fig:electronic} one can see that the feature at 1.5 MeV is nicely visible in the Non-PSD events but is missing in the PSD events. Even though this problem is most significant in the area around 1.5 MeV it is also important at lower energies >400 keV.
+According to \citet{spi_electronic_noise} there are spurious events in the SPI data, which are photons with small energy (<100 keV) that get detected at a higher energy due to saturation of the Analog Front-End Electronics (AFEE) by previous high energy deposition. It is also known, that these spurious events do not show up in events with a detection also in the Pulse Shape Discriminator (PSD) electronics. The reason for this is that the PSD electronics have a low energy threshold of $\approx$ 450 keV (the exact value has been changed a few times during the mission) \citep{spi_electronic_noise}. Therefore only events that deposit more than this low energy threshold in the Germanium crystal can trigger this electronic chain, which eliminates the <100 keV events that are detected at the wrong energies by the AFEE. In Fig. \ref{fig:electronic} one can see that the feature at 1.5 MeV is nicely visible in the Non-PSD events but is missing in the PSD events. Even though this problem is most significant in the area around 1.5 MeV it is also important at lower energies >400 keV.
 
 \begin{figure}[ht]
     \begin{centering}
@@ -115,12 +114,12 @@ According to \citet{spi_electronic_noise} there are spurious events in the SPI d
 \subsection{INTEGRAL OSA software}
 \label{OSA}
 
-As we are introducing a new analysis software in this work, we want to compare it to the existing analysis software, to check if the results are in agreement. We shortly summarize the official analysis tools for GRB analysis, which are part of the INTEGRAL Offline Scientific Analysis ({\tt OSA}) software \citep{osa}.
+As we are introducing a new analysis software in this work, we want to compare it to the existing analysis software, to check if the results are in agreement. We shortly summarize the standard analysis tools for GRB analysis, which are part of the INTEGRAL Offline Scientific Analysis ({\tt OSA}) software \citep{osa}.
 
-Analyzing GRB data from SPI with the {\tt OSA} tools is a multistep process. The first steps cover selecting the science window containing the GRB, the time intervals for active time and background time as well as the energy bins for the analysis. After that one can either find the location of the GRB with SPIROS, i.e. an iterative source removal algorithm for SPI data, or set it manually if it is already known. The next steps concern the spectral fitting, which is done in another two-step procedure.
+Analyzing GRB data from SPI with the {\tt OSA} tools is a multistep process. The first steps cover selecting the science window containing the GRB, the time intervals for active time and background time as well as the energy bins for the analysis. After that one can either find the location of the GRB with SPIROS, i.e. an iterative source removal algorithm for SPI data \citep{Skinner-2003}, or set it manually if it is already known. The next steps concern the spectral fitting, which is done in another two-step procedure.
 
 The first step in the spectral fitting with {\tt OSA} is to use only the photo peak response of the detectors. These responses depend on the source position, as this defines for example the absorption by the mask. With these responses and the measured data in the individual SPI detectors, taking into account the different background rates, a photon flux is fitted individually per energy channel. These pseudo photon fluxes are not the final result, as up to this point energy dispersion and detector energy resolution was not accounted for.
-The pseudo photon flux data points are fitted with a spectral photon flux model and a correction response, that is also available through {\tt OSA}. This correction response depends on the energy bins that are used and should account for energy dispersion. In this step the energy channels are fitted simultaneously, as it is impossible to incorporate energy dispersion in a way that fits every energy channel individually. This fitting can be done in different spectral fitting software, like {\tt XSPEC} or {\tt 3ML}.
+The pseudo photon flux data points are fitted with a spectral photon flux model and a correction response, that is also available through {\tt OSA}. This correction response depends on the energy bins that are used and should account for energy dispersion. In this step the energy channels are fitted simultaneously, as it is impossible to incorporate energy dispersion in a way that fits every energy channel individually. This fitting can be done in different spectral fitting software, like {\tt XSPEC} \citep{xspec} or {\tt 3ML} \citep{3ML}.
 
 
 \subsection{{\tt PySPI}}
@@ -149,7 +148,7 @@ where $b_{\mathrm{i}}$ are the background rates per energy channel, $B_{\mathrm{
 
 \subsubsection{Likelihood}
 
-With the defined background distributions, we can construct a likelihood, given by Eq. \ref{eq:likelihood_m_and_b}, that connects the source and background model with the Poisson process data of the background and active time interval, via the response. Here $\vec{\theta}$ summarizes all the parameters of the source model, $D_{\mathrm{i}}$ are the measured counts in the selected active time interval of the transient source, $m_{\mathrm{i}}(\vec{\theta})$ are the predicted counts from the model evaluated at the parameters $\vec{\theta}$ and $t_{\mathrm{d}}$ is the exposure of the selected active time interval.
+With the defined background distributions, we can construct a likelihood, given by Eq. \ref{eq:likelihood_m_and_b}, that connects the source and background model with the Poisson process data of the background and active time interval, via the response. Here $\vec{\theta}$ summarizes all the parameters of the source model, $D_{\mathrm{i}}$ are the measured counts in the selected active time interval of the transient source, $m_{\mathrm{i}}(\vec{\theta})$ are the predicted count rates from the model evaluated at the parameters $\vec{\theta}$ and $t_{\mathrm{d}}$ is the exposure of the selected active time interval.
 
 \begin{multline}
 	\mathcal{L}(D_{\mathrm{i}}, B_{\mathrm{i}},t_{\mathrm{d}},t_{\mathrm{b}}|\vec{\theta}, b_{\mathrm{i}}) = \frac{(t_{\mathrm{d}}(m_{\mathrm{i}}(\vec{\theta})+ b_{\mathrm{i}}))^{D_{\mathrm{i}}}}{D_{\mathrm{i}}!}\cdot \\
@@ -157,7 +156,7 @@ With the defined background distributions, we can construct a likelihood, given 
   \label{eq:likelihood_m_and_b}
 \end{multline}
 
-If we would have a spectral model for the background, we would fit the background and the source model at the same time with the likelihood given in Eq. \ref{eq:likelihood_m_and_b}, but we do not have such a model for the SPI background. The background in SPI is dominated by the interaction of cosmic rays in the satellite material, which produces e.g. nuclear de-excitation line emission \citep{spi_bkg}. Therefore the background consists of several hundred different atomic lines \citep{spi_bkg}, which makes an accurate spectral model for the background impossible at the moment. But we can marginalize over the parameters $b_{\mathrm{i}}$ using only the fact that they can not be negative, which leaves us with Eq. \ref{eq:likelihood_marg}.
+If there was a spectral model for the background, we would fit the background and the source model at the same time with the likelihood given in Eq. \ref{eq:likelihood_m_and_b}, but we do not have such a model for the SPI background. The background in SPI is dominated by the interaction of cosmic rays in the satellite material, which produces e.g. nuclear de-excitation line emission \citep{spi_bkg}. Therefore the background consists of several hundred different nuclear lines \citep{spi_bkg}, which makes an accurate spectral model for the background impossible at the moment. But we can marginalize over the parameters $b_{\mathrm{i}}$ using only the fact that they can not be negative, which leaves us with Eq. \ref{eq:likelihood_marg}.
 
 \begin{multline}
 	\mathcal{L}(D_{\mathrm{i}}, B_{\mathrm{i}},t_{\mathrm{d}},t_{\mathrm{b}}|\vec{\theta}) = \int_{0}^{\infty}\textrm{db}_{\mathrm{i}}\frac{(t_{\mathrm{d}}(m_{\mathrm{i}}(\vec{\theta})+ b_{\mathrm{i}}))^{D_{\mathrm{i}}}}{D_{\mathrm{i}}!}\cdot\\
@@ -183,7 +182,7 @@ In {\tt PySPI}, we use the official response files, like described in Sec. \ref{
 
 \subsubsection{Electronic Noise}
 
-In {\tt PySPI}, one can select the energy range in which only the PSD events should be used to avoid including spurious events (See Sec. \ref{electronic}). To account for the larger dead time of the PSD electronics, an effective area correction can be either fixed to 85 \% \citep{spi_electronic_noise} or treated as a free parameter of the model.
+In {\tt PySPI}, one can select the energy range in which only the PSD events should be used to avoid including spurious events (see Sec. \ref{electronic}). To account for the larger dead time of the PSD electronics, an effective area correction can be either fixed to 85 \% \citep{spi_electronic_noise} or treated as a free parameter of the model.
 
 \subsubsection{General Procedure}
 
@@ -217,7 +216,7 @@ The core of the model is the assumption of some generic acceleration mechanism, 
   \item Characteristic Lorentz factor the electrons cool to $\gamma_{\mathrm{cool}}$
 \end{enumerate}
 
-There exists a strong degeneracy between $B$ and $\gamma_{\mathrm{inj}}$, as their combination sets the peak of the photon spectrum. Therefore we fix $\gamma_{\mathrm{inj}}=10^{5}$ and only fits for $B$. Thus the results for $\gamma_{\mathrm{max}}$ and $\gamma_{\mathrm{cool}}$ are determined relative to the fixed $\gamma_{\mathrm{inj}}$.
+There exists a strong degeneracy between $B$ and $\gamma_{\mathrm{inj}}$, as their combination sets the peak of the photon spectrum. Therefore we fix $\gamma_{\mathrm{inj}}=10^{5}$ and only fit for $B$. Thus the results for $\gamma_{\mathrm{max}}$ and $\gamma_{\mathrm{cool}}$ are determined relative to the fixed $\gamma_{\mathrm{inj}}$.
 
 \section{Model Checking}
 \label{PPC}
@@ -235,7 +234,7 @@ Here $y^{\textrm{obs}}$ are the observed data, $\textrm{P}(\vec{\theta}|y^{\text
 
 \section{Analysis}
 \label{analysis}
-In this work, we analyze GRB 120711A, which was a bright, multi-pulse GRB with a precursor and a long emission period of $\approx$100 s. It was detected by SPI, GBM and Swift-XRT \citep{GCN_integral, GCN_gbm, GCN_swift}. We look at one time interval with a duration of 10 seconds around the first peak in the light curve (see Fig. \ref{fig:time_selection}). From the XRT detection we know the position of the GRB (RA: 94.68 °, DEC: -71.00 ° in J2000).
+In this work, we analyze GRB 120711A, which was a bright, multi-pulse GRB with a precursor and a long emission period of $\approx$100 s. It was detected by SPI and GBM \citep{GCN_integral, GCN_gbm}. Additionally Swift-XRT \citep{GCN_swift} observed the afterglow. We look at one time interval with a duration of 10 seconds around the first bright peak in the light curve (see Fig. \ref{fig:time_selection}). From the XRT detection we know the position of the GRB (RA: 94\fdg68, DEC: -71\fdg00 in J2000). GRB 120711A was previously analyzed with SPI data by \citet{Martin-Carrillo-2014}, but their work was mainly focused on the post-GRB emission properties. For the prompt emission they only fitted the time averaged spectrum over the $T_{90}$ emission (between 0 and 115 seconds after the trigger), with an empirical exponential cutoff power-law model.
 
 \begin{figure}
   \begin{centering}
@@ -246,7 +245,7 @@ In this work, we analyze GRB 120711A, which was a bright, multi-pulse GRB with a
   \end{centering}
 \end{figure}
 
-First, we fit the data with the empirical Band function. With this we show a comparison between the fit results with {\tt PySPI} and the official software tools for GRB analysis using {\tt OSA} (Sec. \ref{pyspi_osa}) and check if the results for SPI and GBM are in agreement (Sec. \ref{pyspi_gbm}). Then, we fit the SPI and GBM data simultaneously with a physical synchrotron model, to check wether including SPI in the analysis can reduce the allowed parameter space (Sec. \ref{pyspi_gbm_joined}).
+First, we fit the data with the empirical Band function. With this we show a comparison between the fit results with {\tt PySPI} and {\tt OSA} (Sec. \ref{pyspi_osa}) and check if the results for SPI and GBM are in agreement (Sec. \ref{pyspi_gbm}). Then, we fit the SPI and GBM data simultaneously with a physical synchrotron model, to check wether including SPI in the analysis can reduce the allowed parameter space (Sec. \ref{pyspi_gbm_joined}).
 
 %We analyze the data from the two instruments independently first with the empirical Band function, to check if the results for SPI and GBM are in agreement as well as show a comparison between the fit results with {\tt PySPI} and the official software tools for GRB analysis within {\tt OSA}. Then, we fit the SPI and GBM data simultaneously with a physical synchrotron model, and show that it can reduce the allowed parameter space significantly, compared to the individual fits.
 For all GBM and {\tt PySPI} fits we added effective area correction parameters in the fit, allowing the total effective area of the individual detectors to vary with respect to each other, to account for slightly different calibrations. To do this, we fix the response of one of the detectors to the response of that detector and fit one parameter for every other detector. We constrain the effective area correction parameters to be between 0.7 and 1.3.
@@ -258,12 +257,12 @@ All the fits utilize 3ML \citep{3ML} and the Bayesian sampling algorithm MultiNe
 
 \subsection{Compare {\tt PySPI} and {\tt OSA}}
 \label{pyspi_osa}
-We analyze the SPI data with a band function as a spectral model for the same time interval with {\tt PySPI} and {\tt OSA}, to check if the results are in agreement. Fig. \ref{fig:corner_osa_pyspi_band} shows the resulting posterior distributions of the fits. The results for the spectral shape from the two analysis techniques agree within their uncertainty regions, but {\tt PySPI} can constrain the model more precise (see Fig. \ref{fig:model_plot_band}).
+We analyze the SPI data with a Band function as a spectral model for the same time interval with {\tt PySPI} and {\tt OSA}, to check if the results are in agreement. Fig. \ref{fig:corner_osa_pyspi_band} shows the resulting posterior distributions of the fits. The results for the spectral shape from the two analysis techniques agree within their uncertainty regions, but {\tt PySPI} can constrain the model more precisely (see Fig. \ref{fig:model_plot_band}).
 
 \begin{figure}
   \begin{centering}
     \includegraphics[width=1\linewidth]{figures/pyspi_vs_osa_band.pdf}
-    \caption{Corner plot for the SPI fit with {\tt PySPI} and the official tools. The spectral model in this fit is a Band function. The results are in agreement, however {\tt PySPI} constrains the parameters better.}
+    \caption{Corner plot for the SPI fit with {\tt PySPI} and {\tt OSA}. The spectral model in this fit is a Band function. The results are in agreement, however {\tt PySPI} constrains the parameters more precisely.}
     \label{fig:corner_osa_pyspi_band}
   \end{centering}
 \end{figure}
@@ -277,7 +276,7 @@ We analyze the SPI data with a band function as a spectral model for the same ti
 \begin{figure}
   \begin{centering}
     \includegraphics[width=1\linewidth]{figures/pyspi_and_gbm_syn.pdf}
-    \caption{Corner plot for the SPI fit with {\tt PySPI} and the GBM fit. In this fit we used a physical synchrotron model (see \ref{synch}) as spectral model. The results from SPI and GBM agree within their uncertainty region and the combined fit constrains the parameter better than the individual ones.}
+    \caption{Corner plot for the SPI fit with {\tt PySPI} and the GBM fit. In this fit we used a physical synchrotron model (see Sec. \ref{synch}) as spectral model. The results from SPI and GBM agree within their uncertainty region and the combined fit constrains the parameter better than the individual ones.}
     \label{fig:corner_gbm_pyspi_joined_syn}
   \end{centering}
 \end{figure}
@@ -285,7 +284,8 @@ We analyze the SPI data with a band function as a spectral model for the same ti
 \begin{figure*}
   \begin{centering}
     \includegraphics[width=0.45\linewidth]{figures/band_pyspi_osa.pdf}
-    \includegraphics[width=0.45\linewidth]{figures/band_pyspi_gbm.pdf}   \caption{Model posterior plots (95\% confidence region) for the results with the Band function model. Left panel shows the results for the PySPI compared to the fit using the official method and the right panel the PySPI fit compared to the GBM fit.}
+    \includegraphics[width=0.45\linewidth]{figures/band_pyspi_gbm.pdf}
+    \caption{Model posterior plots (95\% confidence region) for the results with the Band function model. Left panel shows the results for the {\tt PySPI} fit compared to the fit using {\tt OSA} and the right panel the {\tt PySPI} fit compared to the GBM fit.}
     \label{fig:model_plot_band}
   \end{centering}
 \end{figure*}
@@ -303,21 +303,22 @@ We perform a a joint fit of SPI and GBM data with a physical synchrotron model (
 \begin{figure*}
   \begin{centering}
     \includegraphics[width=0.45\linewidth]{figures/spi_combined.pdf}
-    \includegraphics[width=0.45\linewidth]{figures/gbm_combined.pdf}   \caption{Model posterior plots (95\% confidence region) for the results with the physical synchrotron model. Left panel shows the results for the SPI alone fit compared to the combined fit and the right panel the GBM alone fit compared to the combined fit.}
+    \includegraphics[width=0.45\linewidth]{figures/gbm_combined.pdf}
+    \caption{Model posterior plots (95\% confidence region) for the results with the physical synchrotron model. Left panel shows the results for the SPI alone fit compared to the combined fit and the right panel the GBM alone fit compared to the combined fit. The combined fit reduces the allowed model space.}
     \label{fig:model_plot_syn}
   \end{centering}
 \end{figure*}
 \begin{figure*}
   \begin{centering}
     \includegraphics[width=1\linewidth]{figures/fit_plot.pdf}
-    \caption{Data and best fit model for four of the SPI detectors. The spectral model for this fit was a physical synchrotron model.}
+    \caption{Data and best fit model for four of the SPI detectors in count space. The spectral model for this fit was a physical synchrotron model.}
     \label{fig:dataplot}
   \end{centering}
 \end{figure*}
 \clearpage
 \section{Conclusion}
 \label{conclusion}
-We have presented a new analysis method for GRBs detected by INTEGRAL/SPI and the corresponding software package utilizing this method ({\tt PySPI}), which uses a proper forward-folding technique for each detector (see sec. \ref{pyspi}). To show that this improves the analysis of GRBs detected by SPI, we have analyzed GRB 120711A using the data from INTGRAL/SPI and Fermi/GBM. The results for SPI with {\tt PySPI} are in agreement with those from the official INTEGRAL OSA software, but more constraining. Also, the resulting spectral shape for the fits with GBM and SPI data are in agreement and the relative calibration difference between SPI and GBM we conclude from the fits, is $\approx$ 10\% or less. We show that the GBM as well as the SPI data for GRB 120711A can be fitted well with a physical synchrotron model and that combining the data in a simultaneous fit improves the parameter constraints. Consequently, SPI can play an important role in physical GRB model checking.
+We have presented a new analysis method for GRBs detected by INTEGRAL/SPI and the corresponding software package utilizing this method ({\tt PySPI}), which uses a proper forward-folding technique for each detector (see Sec. \ref{pyspi}). To show that this improves the analysis of GRBs detected by SPI, we have analyzed GRB 120711A using the data from INTGRAL/SPI and Fermi/GBM. The results for SPI with {\tt PySPI} are in agreement with those from the INTEGRAL OSA software, but more constraining. Also, the resulting spectral shape for the fits with GBM and SPI data are in agreement and the relative calibration difference between SPI and GBM we conclude from the fits, is $\approx$ 10\% or less. We show that the GBM as well as the SPI data for GRB 120711A can be fitted well with a physical synchrotron model and that combining the data in a simultaneous fit improves the parameter constraints. Consequently, SPI can play an important role in physical GRB model checking.
 %if we apply a forward modelling method which is used in {\tt PySPI}, as described in Sec. \ref{pyspi}.
 
 The next steps will be the analysis of all GRBs detected by SPI with different physical models and {\tt PySPI}, to check if some of these models can be rejected with the SPI data. This will be covered in a future work.
@@ -337,13 +338,13 @@ This work made use of the following software packages:
 \onecolumn
   \section{Model Checking Plots}
   \label{appendix}
-  In this section we show a selection of the PPC- and QQ-plots for the simultaneous synchrotron fit to the SPI and GBM data for GRB120711A. The green and purple shaded area are the one and two sigma contours. In the PPC plots the grey curve is the detected count spectrum and in the QQ plots the expected 1:1 relation between the cumulative model and observed counts.
+  In this section we show a selection of the PPC- and QQ-plots for the simultaneous synchrotron fit to the SPI and GBM data for GRB120711A. The green and purple shaded area are the one and two sigma contours. In the PPC plots the dark yellow curve is the detected count spectrum and in the QQ plots the expected 1:1 relation between the cumulative model and observed counts.
 
   \begin{figure*}[ht]
     \begin{centering}
       \includegraphics[width=0.45\linewidth]{figures/n0_ppc.pdf}
       \includegraphics[width=0.45\linewidth]{figures/n0_qq.pdf}
-      \caption{PPC (left) and QQ (right) plot for the GBM detector n0. The green and purple shaded area are the one and two sigma contours.}
+      \caption{PPC (left) and QQ (right) plot for the GBM detector n0. The green and purple shaded area are the one and two sigma contours. In the PPC plots the dark yellow curve is the detected count spectrum and in the QQ plots the expected 1:1 relation between the cumulative model and observed counts.}
       \label{fig:n0_model_check}
     \end{centering}
   \end{figure*}
@@ -351,7 +352,7 @@ This work made use of the following software packages:
     \begin{centering}
       \includegraphics[width=0.45\linewidth]{figures/b0_ppc.pdf}
       \includegraphics[width=0.45\linewidth]{figures/b0_qq.pdf}
-      \caption{PPC (left) and QQ (right) plot for the GBM detector b0. The green and purple shaded area are the one and two sigma contours.}
+      \caption{PPC (left) and QQ (right) plot for the GBM detector b0. The green and purple shaded area are the one and two sigma contours. In the PPC plots the dark yellow curve is the detected count spectrum and in the QQ plots the expected 1:1 relation between the cumulative model and observed counts.}
       \label{fig:b0_model_check}
     \end{centering}
   \end{figure*}
@@ -360,7 +361,7 @@ This work made use of the following software packages:
     \begin{centering}
       \includegraphics[width=0.45\linewidth]{figures/low_13_ppc.pdf}
       \includegraphics[width=0.45\linewidth]{figures/low_13_qq.pdf}
-      \caption{PPC (left) and QQ (right) plot for the low energy range of SPI detector 13 (all single events).}
+      \caption{PPC (left) and QQ (right) plot for the low energy range of SPI detector 13 (all single events). In the PPC plots the dark yellow curve is the detected count spectrum and in the QQ plots the expected 1:1 relation between the cumulative model and observed counts.}
       \label{fig:low_13_model_check}
     \end{centering}
   \end{figure*}
@@ -369,7 +370,7 @@ This work made use of the following software packages:
     \begin{centering}
       \includegraphics[width=0.45\linewidth]{figures/psd_13_ppc.pdf}
       \includegraphics[width=0.45\linewidth]{figures/psd_13_qq.pdf}
-      \caption{PPC (left) and QQ (right) plot for the middle energy range of SPI detector 13 (only PSD events).}
+      \caption{PPC (left) and QQ (right) plot for the middle energy range of SPI detector 13 (only PSD events). In the PPC plots the dark yellow curve is the detected count spectrum and in the QQ plots the expected 1:1 relation between the cumulative model and observed counts.}
       \label{fig:psd_13_model_check}
     \end{centering}
   \end{figure*}
