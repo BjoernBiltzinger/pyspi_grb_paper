@@ -57,7 +57,7 @@ for i, s in enumerate(samples_sel_both):
     vals_both[i] = synch(e)
 
 import matplotlib.pyplot as plt
-plt.style.use("mplstyle.sty")
+plt.style.use("matplotlibrc")
 q = 95
 fig, ax = plt.subplots()
 color1 = "#544b3dff"

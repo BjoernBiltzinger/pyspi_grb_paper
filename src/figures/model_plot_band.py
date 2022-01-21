@@ -58,7 +58,7 @@ for i, s in enumerate(samples_sel_osa):
     #ax.loglog(e, e*e*synch(e), color="green")
 
 import matplotlib.pyplot as plt
-plt.style.use("mplplotlibrc")
+plt.style.use("matplotlibrc")
 q = 95
 fig, ax = plt.subplots()
 color1 = "#544b3dff"

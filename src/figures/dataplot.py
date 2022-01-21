@@ -138,7 +138,7 @@ for i, s in enumerate(spilikes_psd):
 
 from threeML import display_spectrum_model_counts
 
-plt.style.use("mplplotlibrc")
+plt.style.use("matplotlibrc")
 colors=[color1,color4,color2,color3,color5]
 f = display_spectrum_model_counts(ba_gbm_band_1,
                                      data=['SPIDet13', 'SPIDet14', 'SPIDet15', 'SPIDet16'],
