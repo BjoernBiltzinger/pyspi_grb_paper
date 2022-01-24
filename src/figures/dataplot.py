@@ -140,12 +140,22 @@ from threeML import display_spectrum_model_counts
 
 plt.style.use("matplotlibrc")
 colors=[color1,color4,color2,color3,color5]
-f = display_spectrum_model_counts(ba_gbm_band_1,
-                                     data=['SPIDet13', 'SPIDet14', 'SPIDet15', 'SPIDet16'],
-                                     data_per_plot=5, min_rate=0.3,
-                                     model_colors=colors, data_colors=colors,
-                                     show_residuals=False);
-
+f = display_spectrum_model_counts(ba_gbm_band_1, data=['SPIDet13', 'SPIDet14', 'SPIDet16', "gbmn4"], data_per_plot=5, min_rate=0.3, model_colors=colors, data_colors=colors, show_residuals=False, source_only=True);
 f.axes[0].get_legend().remove()
-lgd = f.legend(loc='center left', bbox_to_anchor=(1, 0.6))
+f.axes[0].set_xlim(30,400)
+lgd = f.legend(loc='center left', bbox_to_anchor=(1, 0.6), labels=["SPI Det13 PSD Model", "SPI Det14 PSD Model", "SPI Det16 PSD Model",
+                                                                    "GBM NaI-4 Model","SPI Det13 PSD Data", "SPI Det14 PSD Data",
+                                                                    "SPI Det16 PSD Data", "GBM NaI-4 Data"])
 f.savefig("fit_plot.pdf")
+
+f = display_spectrum_model_counts(ba_gbm_band_1,
+                                  data=['SPIDet13MID', 'SPIDet14MID', 'SPIDet16MID', "gbmb0"],
+                                  data_per_plot=5, min_rate=0.3, model_colors=colors,
+                                  data_colors=colors, show_residuals=False, source_only=True);
+f.axes[0].get_legend().remove()
+
+f.axes[0].set_xlim(400,2000)
+lgd = f.legend(labels=["SPI Det13 PSD Model", "SPI Det14 PSD Model", "SPI Det16 PSD Model",
+                       "GBM BGO-0 Model","SPI Det13 PSD Data", "SPI Det14 PSD Data", "SPI Det16 PSD Data", "GBM BGO-0 Data"],
+               loc='center left', bbox_to_anchor=(1, 0.6))
+f.savefig("fit_plot_high.pdf")
