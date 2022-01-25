@@ -76,7 +76,7 @@ ax.fill_between(e, e**2*mi, e**2*ma, color=color3, alpha=1, label="PySPI")
 
 mi = np.percentile(vals_osa, 50-q/2, axis=0)
 ma = np.percentile(vals_osa, 50+q/2, axis=0)
-ax.fill_between(e, e**2*mi, e**2*ma, color=color2, alpha=0.5, label="Official Tools")
+ax.fill_between(e, e**2*mi, e**2*ma, color=color2, alpha=0.5, label="Standard Tools")
 
 ax.set_xscale("log")
 ax.set_yscale("log")

@@ -20,7 +20,7 @@ c = ChainConsumer()
 chain = loadtxt2d('./chains/OSA_BAND_post_equal_weights.dat')
 
 c.add_chain(chain[:,:4], parameters=['K', r'$\alpha$', r'$E_{peak}$', r'$\beta$'],
-            name='Official Tools', color=color2)
+            name='Standard Tools', color=color2)
 
 chain = loadtxt2d('./chains/PYSPI_BAND_post_equal_weights.dat')
 
