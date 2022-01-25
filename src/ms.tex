@@ -6,8 +6,6 @@
 %\usepackage{subcaption}
 \usepackage{float}
 
-
-
 %\usepackage[style=authoryear-comp, maxnames=2, uniquelist=false]{natbib}
 %\usepackage{natbib}
 % Begin!
@@ -39,7 +37,7 @@
 %\label{firstpage}
 % Abstract with filler text
 \abstract{
-INTEGRAL/SPI is a coded mask instrument observing since 2002 in the keV to MeV energy range, which covers the peak of the $\nu F\nu$ spectrum of most Gamma-Ray Bursts (GRBs). Since its launch in 2008, Fermi/GBM has been the primary instrument for analyzing GRBs in the energy range between $\approx$ 10 keV to $\approx$ 10 MeV. Herein, we show that SPI, covering a similar energy range, can give equivalently constraining results for some parameters if we use an advanced analysis method. Also, combining the data of both instruments reduces the allowed parameter space in spectral fits. The main advantage of SPI as compared to GBM is the energy resolution of $\approx$ 0.2\% at 1.3 MeV compared to $\approx$ 10\% for GBM. Therefore, SPI is an ideal instrument to precisely measure the curvature of the spectrum. This is important, as it has been shown in recent years that physical models rather than heuristic functions have should be fit to GRB data to obtain better insights into their still unknown emission mechanism, and the curvature of the peak is unique to the different physical models.
+INTEGRAL/SPI is a coded mask instrument observing since 2002 in the keV to MeV energy range, which covers the peak of the $\nu F\nu$ spectrum of most Gamma-Ray Bursts (GRBs). Since its launch in 2008, Fermi/GBM has been the primary instrument for analyzing GRBs in the energy range between $\approx$ 10 keV to $\approx$ 10 MeV. Herein, we show that SPI, covering a similar energy range, can give equivalently constraining results for some parameters if we use an advanced analysis method. Also, combining the data of both instruments reduces the allowed parameter space in spectral fits. The main advantage of SPI as compared to GBM is the energy resolution of $\approx$ 0.2\% at 1.3 MeV compared to $\approx$ 10\% for GBM. Therefore, SPI is an ideal instrument to precisely measure the curvature of the spectrum. This is important, as it has been shown in recent years that physical models rather than heuristic functions should be fit to GRB data to obtain better insights into their still unknown emission mechanism, and the curvature of the peak is unique to the different physical models.
 To fit physical models to SPI GRB data and get the maximal amount of information from the data, we developed a new open source analysis software {\tt PySPI}. We apply these new techniques to GRB 120711A in order to validate and showcase {\tt PySPI}'s capabilities. We show that {\tt PySPI} improves the analysis of SPI GRB data compared to the {\tt OSA} analysis. In addition, we demonstrate that the GBM and the SPI data of this GRB can be fitted well with a physical synchrotron model. This evinces that SPI can play an important role in GRB spectral model fitting.
 }
 
@@ -110,7 +108,7 @@ These effective areas were calculated for 51 photon energies and on a 0\fdg5  gr
 \subsection{Electronic Noise}
 \label{electronic}
 %Since shortly after the start of INTEGRAL, it is known that there are spurious events in the SPI data around 1.5 MeV.
-According to \citet{spi_electronic_noise} there are spurious events in the SPI data, which are photons with small energy (<100 keV) that get detected at a higher energy due to saturation of the Analog Front-End Electronics (AFEE) by previous high energy deposition. It is also known, that these spurious events do not show up in events with a detection also in the Pulse Shape Discriminator (PSD) electronics. The reason for this is that the PSD electronics have a low energy threshold of $\approx$450 keV and a high energy threshold of $\approx$2700 keV (the exact values have been changed a few times during the mission) \citep{spi_electronic_noise}. Therefore, only events that deposit more than this low energy threshold in the Germanium crystal can trigger this electronic chain, which eliminates the $<$100 keV events that are detected at the wrong energies by the AFEE. In Fig. \ref{fig:electronic} one can see that the feature at 1.5 MeV is nicely visible in the Non-PSD events but is missing in the PSD events. Even though this problem is most significant in the area around 1.5 MeV it is also important at lower energies $>$400 keV. The electronic noise is not stable and depends on the signal strength \citep{spi_electronic_noise}, therefore it can not be included in the response and has to be treated differently.
+According to \citet{spi_electronic_noise} there are spurious events in the SPI data, which are photons with small energy (<100 keV) that get detected at a higher energy due to saturation of the Analog Front-End Electronics (AFEE) by previous high energy deposition. It is also known, that these spurious events do not show up in events with a detection also in the Pulse Shape Discriminator (PSD) electronics. The reason for this is that the PSD electronics have a low energy threshold of $\approx$450 keV and a high energy threshold of $\approx$2700 keV \citep[the exact values have been changed a few times during the mission; ][]{spi_electronic_noise}. Therefore, only events that deposit more than this low energy threshold in the Germanium crystal can trigger this electronic chain, which eliminates the $<$100 keV events that are detected at the wrong energies by the AFEE. In Fig. \ref{fig:electronic} one can see that the feature at 1.5 MeV is nicely visible in the Non-PSD events but is missing in the PSD events. Even though this problem is most significant in the area around 1.5 MeV it is also important at lower energies $>$400 keV. The electronic noise is not stable and depends on the signal strength \citep{spi_electronic_noise}, therefore it can not be included in the response and has to be treated differently.
 
 \begin{figure}[ht]
     \begin{centering}
@@ -135,7 +133,7 @@ The pseudo photon flux data points are fitted with a spectral photon flux model 
 \label{pyspi}
 To fit SPI GRB data, we developed a new python package {\tt PySPI} \citep{joss}.
 %which is an open source analysis tool. In the following
-Below, e summarize the main points of GRB analysis within {\tt PySPI}.
+Below, we summarize the main points of GRB analysis within {\tt PySPI}.
 
 \subsubsection{Background}
 
@@ -215,7 +213,7 @@ Every Ge detector is treated as an independent detector unit. The workflow durin
 %A sampling algorithm like MultiNest \citep{multinest} is used to iterate this procedure, in order to determine the posterior distributions.\\
 
 \noindent
-The BALROG (BAyesian Lo-cation Reconstruction Of GRBs) algorithm for localizing GRBs with Fermi/GBM employs the same method \citep{balrog}, which shows that forward folding allows one to localize photons with a non-imaging instrument. It is important to realize that the instruments SPI and GBM are fundamentally very similar. They both consist of individual detectors that have different responses for a given source position. In GBM, this is due to the different pointing directions of the detectors, and in SPI due to the varying obscuration by the mask. Even though SPI is defined as a coded-mask instrument, we don't have to treat it specially. The information which the mask encodes into the data is automatically included by using the different responses for the detectors and a forward folding method.
+The BALROG (BAyesian Lo-cation Reconstruction Of GRBs) algorithm for localizing GRBs with Fermi/GBM employs the same method \citep{balrog}, which shows that forward folding allows one to localize photon sources with a non-imaging instrument. It is important to realize that the instruments SPI and GBM are fundamentally very similar. They both consist of individual detectors that have different responses for a given source position. In GBM, this is due to the different pointing directions of the detectors, and in SPI due to the varying obscuration by the mask. Even though SPI is defined as a coded-mask instrument, we don't have to treat it specially. The information which the mask encodes into the data is automatically included by using the different responses for the detectors and a forward folding method.
 
 \subsubsection{Software Interface}
 
@@ -294,7 +292,7 @@ Fig. \ref{fig:corner_osa_pyspi_band} shows the resulting posterior distributions
 \begin{figure}
   \begin{centering}
     \includegraphics[width=1\linewidth]{figures/pyspi_vs_osa_band.pdf}
-    \caption{Corner plot for the Band function fit to the SPI data with {\tt PySPI} and {\tt OSA} to the data of GRB120711A}. The results are in agreement, but {\tt PySPI} constrains the parameters more precisely.
+    \caption{Corner plot for the Band function fit to the SPI data with {\tt PySPI} and {\tt OSA} to the data of GRB120711A. The results are in agreement, but {\tt PySPI} constrains the parameters more precisely.}
     \label{fig:corner_osa_pyspi_band}
   \end{centering}
 \end{figure}
