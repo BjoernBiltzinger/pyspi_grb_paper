@@ -6,6 +6,13 @@
 %\usepackage{subcaption}
 \usepackage{float}
 
+\usepackage[pdftex]{xcolor}
+\definecolor{citecolor}{HTML}{195D95}
+\definecolor{BrickRed}{HTML}{C41010}
+\definecolor{Navy}{HTML}{C41010}
+
+\def\me#1{\textcolor{BrickRed}{jcg: \textbf{ #1}}}
+\newcommand{\BB}[1]{\textcolor{purple}{\textsf{(BB: #1)}}}
 
 %\usepackage[style=authoryear-comp, maxnames=2, uniquelist=false]{natbib}
 %\usepackage{natbib}
@@ -66,7 +73,7 @@ The spectrometer SPI \citep{spi_main} is one of the instruments onboard of the I
 
 The standard analysis of SPI GRB data is done within the INTEGRAL Offline Scientific Analysis ({\tt OSA}) software \citep{osa}, including SPI-specific routines \citep{Diehl+2003}. A two step method is applied, by first using only the photo peak response to incorporate the mask pattern on the detectors and in a second step applying an energy redistribution correction response. This method is used in several works which fitted empirical GRB models to the SPI data \citep{Malaguti-2003, Mereghetti-2003, Mereghetti-2003.2, Kienlin-2003, Kienlin-2003.2,Beckmann-2004, Moran-2005, Filliatre-2005.1, Filliatre-2005.2, McBreen-2006, Grebenev-2007, McGlynn-2008, Foley-2008, McGlynn-2009, Martin-Carrillo-2014}.
 
-\citet{Bosnjak-2014} used a different approach to create a spectral catalogue of INTEGRAL GRBs, with a joined analysis of SPI and the Imager on Board the INTEGRAL Satellite (IBIS). They construct a response for every SPI detector and forward model the photon model directly into the data space of every detector, which is similar to our approach in this work. But they build the responses and treated the background differently then we do in this work. We will point out the differences in the corresponding chapters in Sec. \ref{pyspi}.
+\citet{Bosnjak-2014} used a different approach to create a spectral catalogue of INTEGRAL GRBs, with a joined analysis of SPI and the Imager on Board the INTEGRAL Satellite (IBIS). They construct a response for every SPI detector and forward model the photon model directly into the data space of every detector, which is similar to our approach in this work. But they build the responses and treated the background differently then we do in this work. We will point out the differences in Sec. \ref{pyspi}.
 %But they build the response simply according to the exposed fraction of the detector for the GRB direction and use background subtracted data for their fits.
 %Several works have used SPI data for GRBs \citep{spi_grb1, spi_grb2}, but all of them fitted empirical models like the Band function.
 
@@ -109,7 +116,7 @@ These effective areas were calculated for 51 photon energies and on a 0\fdg5  gr
 \subsection{Electronic Noise}
 \label{electronic}
 %Since shortly after the start of INTEGRAL, it is known that there are spurious events in the SPI data around 1.5 MeV.
-According to \citet{spi_electronic_noise} there are spurious events in the SPI data, which are photons with small energy (<100 keV) that get detected at a higher energy due to saturation of the Analog Front-End Electronics (AFEE) by previous high energy deposition. It is also known, that these spurious events do not show up in events with a detection also in the Pulse Shape Discriminator (PSD) electronics. The reason for this is that the PSD electronics have a low energy threshold of $\approx$450 keV and a high energy threshold of $\approx$2700 keV (the exact value has been changed a few times during the mission) \citep{spi_electronic_noise}. Therefore, only events that deposit more than this low energy threshold in the Germanium crystal can trigger this electronic chain, which eliminates the $<$100 keV events that are detected at the wrong energies by the AFEE. In Fig. \ref{fig:electronic} one can see that the feature at 1.5 MeV is nicely visible in the Non-PSD events but is missing in the PSD events. Even though this problem is most significant in the area around 1.5 MeV it is also important at lower energies $>$400 keV. The electronic noise is not stable and depends on the signal strength \citep{spi_electronic_noise}, therefore it can not be included in the response and has to be treated differently.
+According to \citet{spi_electronic_noise} there are spurious events in the SPI data, which are photons with small energy (<100 keV) that get detected at a higher energy due to saturation of the Analog Front-End Electronics (AFEE) by previous high energy deposition. It is also known, that these spurious events do not show up in events with a detection also in the Pulse Shape Discriminator (PSD) electronics. The reason for this is that the PSD electronics have a low energy threshold of $\approx$450 keV and a high energy threshold of $\approx$2700 keV (the exact values have been changed a few times during the mission) \citep{spi_electronic_noise}. Therefore, only events that deposit more than this low energy threshold in the Germanium crystal can trigger this electronic chain, which eliminates the $<$100 keV events that are detected at the wrong energies by the AFEE. In Fig. \ref{fig:electronic} one can see that the feature at 1.5 MeV is nicely visible in the Non-PSD events but is missing in the PSD events. Even though this problem is most significant in the area around 1.5 MeV it is also important at lower energies $>$400 keV. The electronic noise is not stable and depends on the signal strength \citep{spi_electronic_noise}, therefore it can not be included in the response and has to be treated differently.
 
 \begin{figure}[ht]
     \begin{centering}
@@ -194,7 +201,8 @@ This profile likelihood method is used in many spectral analysis works \citep[e.
 
 \subsubsection{Response}
 
-In {\tt PySPI}, we use the official response files, as described in Sec. \ref{response}, interpolate them to the wanted energy bins and source positions and construct one response matrix incorporating all the information about the effective area and energy redistribution. This also includes that we take into account that the mask is not absorbing 100\% of the photons flying through it. This is different to the work presented in \citet{Bosnjak-2014}, that used a `response function' simply taking into account the exposed fraction of each detector and therefore assuming a mask that absorbs 100\% of the photons for every photon energy.
+In {\tt PySPI}, we use the official response files, as described in Sec. \ref{response}, interpolate them to the wanted energy bins and source positions and construct one response matrix incorporating all the information about the effective area and energy redistribution. This also includes that we take into account that the mask is not absorbing 100\% of the photons flying through it. This is different to the work presented in \citet{Bosnjak-2014}, which used a `response function' simply taking into account the exposed fraction of each detector and therefore assuming a mask that absorbs 100\% of the photons for every photon energy.
+
 \subsubsection{Electronic Noise}
 
 In {\tt PySPI}, one can select the energy range in which only the PSD events should be used to avoid including spurious events (see Sec. \ref{electronic}). To account for the larger dead time of the PSD electronics, an effective area correction can be either fixed to 85\% \citep{spi_electronic_noise}, or treated as a free parameter of the model.
@@ -292,21 +300,21 @@ Fig. \ref{fig:corner_osa_pyspi_band} shows the resulting posterior distributions
 \begin{figure}
   \begin{centering}
     \includegraphics[width=1\linewidth]{figures/pyspi_vs_osa_band.pdf}
-    \caption{Corner plot for the Band function fit to the SPI data with {\tt PySPI} and {\tt OSA}.  The results are in agreement, but {\tt PySPI} constrains the parameters more precisely.}
+    \caption{Corner plot for the Band function fit to the SPI data with {\tt PySPI} and {\tt OSA} to the data of GRB120711A}. The results are in agreement, but {\tt PySPI} constrains the parameters more precisely.
     \label{fig:corner_osa_pyspi_band}
   \end{centering}
 \end{figure}
 \begin{figure}
   \begin{centering}
     \includegraphics[width=1\linewidth]{figures/pyspi_vs_gbm_band.pdf}
-    \caption{Corner plot for the SPI fit with {\tt PySPI} and the GBM fit. In this fit we used a Band function as spectral model. The spectral shape for the SPI and GBM fits coincide within their uncertainty regions and the normalization is off by $\approx$10\%.}
+    \caption{Corner plot for the SPI fit with {\tt PySPI} and the GBM fit to the data of GRB120711A. In this fit we used a Band function as spectral model. The spectral shape for the SPI and GBM fits coincide within their uncertainty regions and the normalization is off by $\approx$10\%.}
     \label{fig:corner_gbm_pyspi_band}
   \end{centering}
 \end{figure}
 \begin{figure}
   \begin{centering}
     \includegraphics[width=1\linewidth]{figures/pyspi_and_gbm_syn.pdf}
-    \caption{Corner plot for the SPI fit with {\tt PySPI} and the GBM fit. In this fit we used a physical synchrotron model (see Sec. \ref{synch}) as spectral model. The results from SPI and GBM agree within their uncertainty region and the combined fit constrains the parameter better than the individual ones.}
+    \caption{Corner plot for the SPI fit with {\tt PySPI} and the GBM fit to the data of GRB120711A. In this fit we used a physical synchrotron model (see Sec. \ref{synch}) as spectral model. The results from SPI and GBM agree within their uncertainty region and the combined fit constrains the parameter better than the individual ones.}
     \label{fig:corner_gbm_pyspi_joined_syn}
   \end{centering}
 \end{figure}
@@ -315,7 +323,7 @@ Fig. \ref{fig:corner_osa_pyspi_band} shows the resulting posterior distributions
   \begin{centering}
     \includegraphics[width=0.45\linewidth]{figures/band_pyspi_osa.pdf}
     \includegraphics[width=0.45\linewidth]{figures/band_pyspi_gbm.pdf}
-    \caption{Model posterior plots (95\% confidence region) for the results with the Band function model. Left panel shows the results for the {\tt PySPI} fit compared to the fit using {\tt OSA} and the right panel the {\tt PySPI} fit compared to the GBM fit.}
+    \caption{Model posterior plots (95\% confidence region) for the results with the Band function model and the data for GRB120711A. Left panel shows the results for the {\tt PySPI} fit compared to the fit using {\tt OSA} and the right panel the {\tt PySPI} fit compared to the GBM fit.}
     \label{fig:model_plot_band}
   \end{centering}
 \end{figure*}
@@ -336,7 +344,7 @@ We perform a joint fit of SPI and GBM data with a physical synchrotron model (se
   \begin{centering}
     \includegraphics[width=0.45\linewidth]{figures/spi_combined.pdf}
     \includegraphics[width=0.45\linewidth]{figures/gbm_combined.pdf}
-    \caption{Model posterior plots (95\% confidence region) for the results with the physical synchrotron model. Left panel shows the results for the SPI alone fit compared to the combined fit and the right panel the GBM alone fit compared to the combined fit. The combined fit reduces the allowed model space.}
+    \caption{Model posterior plots (95\% confidence region) for the results with the physical synchrotron model and the data for GRB120711A. Left panel shows the results for the SPI alone fit compared to the combined fit and the right panel the GBM alone fit compared to the combined fit. The combined fit reduces the allowed model space.}
     \label{fig:model_plot_syn}
   \end{centering}
 \end{figure*}
@@ -344,7 +352,7 @@ We perform a joint fit of SPI and GBM data with a physical synchrotron model (se
   \begin{centering}
     \includegraphics[width=1\linewidth]{figures/fit_plot.pdf}
     \includegraphics[width=1\linewidth]{figures/fit_plot_high.pdf}
-    \caption{Data and best fit model in count space for three of the SPI detectors and one of the NaI (BGO) detectors of GBM in the upper (lower) plot. The spectral model for this fit was a physical synchrotron model.}
+    \caption{Data (for GRB120711A) and best fit model in count space for three of the SPI detectors and one of the NaI (BGO) detectors of GBM in the upper (lower) plot. The spectral model for this fit was a physical synchrotron model.}
     \label{fig:dataplot}
   \end{centering}
 \end{figure*}
@@ -352,7 +360,7 @@ We perform a joint fit of SPI and GBM data with a physical synchrotron model (se
 \section{Conclusion}
 \label{conclusion}
 We have presented a new analysis method for GRBs detected by INTEGRAL/SPI and the corresponding software package utilizing this method ({\tt PySPI}), which uses a proper forward-folding technique for each detector (see Sec. \ref{pyspi}). To show that this improves the analysis of GRBs detected by SPI, we have analyzed GRB 120711A using the data from INTGRAL/SPI and Fermi/GBM. The results for SPI with {\tt PySPI} are in agreement with those from the INTEGRAL OSA software, but more constraining. Also, the resulting spectral shape for the fits with GBM and SPI data are in agreement and the relative calibration difference between SPI and GBM we conclude from the fits, is $\approx$ 10\% or less. We show that the GBM as well as the SPI data for GRB 120711A can be fitted well with a physical synchrotron model and that combining the data in a simultaneous fit improves the parameter constraints. Consequently, SPI can play an important role in physical GRB model checking.
-%if we apply a forward modelling method which is used in {\tt PySPI}, as described in Sec. \ref{pyspi}.
+%, if we apply a forward modelling method which is used in {\tt PySPI}, as described in Sec. \ref{pyspi}.
 
 The next steps will be the analysis of all GRBs detected by SPI with different physical models and {\tt PySPI}, to check if some of these models can be rejected with the SPI data. This will be covered in a future work.
 % thomas Generally {\tt PySPI} can improve the scientific output from SPI for GRBs significantly. Due to a new analysis method, that folds the source model directly into the data space of every SPI detector with the full response of the individual detectors, the results are more constraining than the results with the official analysis software.
