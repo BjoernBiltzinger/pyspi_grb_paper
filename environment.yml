@@ -11,3 +11,4 @@ dependencies:
       - chainconsumer
       - git+https://github.com/BjoernBiltzinger/twopc@paper_version
       - git+https://github.com/BjoernBiltzinger/pynchrotron@peaknorm
+      - pandas==1.3
