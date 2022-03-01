@@ -369,13 +369,13 @@ This work made use of the following software packages:\\
 
   \section{Localizing GRB 120711A}
 
-  It is also possible to localize GRBs with PySPI. To localize we vary the spectrum parameters and the location of the source at the same time in one fit. For this, PySPi has a fast response generator, that uses the base response simulation grid to generate the response for any given source position quickly. Fig ? shows the localization we get if we fit the location and use a Band function as spectral model. We also marked the position of the GRB measured by Swift/XRT, which shows that the result with the SPI data is in agreement with the Swift/XRT observation. For this fit we only used the energies up to 600 keV, to avoid the PSD energy region.
+  It is also possible to localize GRBs with PySPI. To localize we vary the spectrum parameters and the location of the source at the same time in one fit. For this, PySPi has a fast response generator, that uses the base response simulation grid to generate the response for any given source position quickly. Fig. \ref{fig:localization} shows the localization we get if we fit the location and use a Band function as spectral model. We also marked the position of the GRB measured by Swift/XRT, which shows that the result with the SPI data is in agreement with the Swift/XRT observation. For this fit we only used the energies up to 600 keV, to avoid the PSD energy region.
 
   \begin{figure}
   \begin{centering}
     \includegraphics[width=1\linewidth]{figures/loc.pdf}
     \caption{Localization of GRB120711A with PySPI with contours giving the statistical only 1 and 2 sigma areas. We estimate an additional systematic error of $\approx$ 0.5 degree because that is the resolution of the grid points in the response simulation. The dashed lines mark the position observed by Swift/XRT.}
-    \label{fig:dataplot}
+    \label{fig:localization}
   \end{centering}
 \end{figure}
 
