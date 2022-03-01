@@ -5,7 +5,7 @@
 %\usepackage{caption}
 %\usepackage{subcaption}
 \usepackage{float}
-
+\newcommand{\BB}[1]{\textcolor{red}{\textsf{#1}}}
 %\usepackage[style=authoryear-comp, maxnames=2, uniquelist=false]{natbib}
 %\usepackage{natbib}
 % Begin!
@@ -65,7 +65,7 @@ The spectrometer SPI \citep{spi_main} is one of the instruments onboard of the I
 
 The standard analysis of SPI GRB data is done within the INTEGRAL Offline Scientific Analysis ({\tt OSA}) software \citep{osa}, including SPI-specific routines \citep{Diehl-2003}. A two step method is applied, by first using only the photo peak response to incorporate the mask pattern on the detectors and in a second step applying an energy redistribution correction response. This method is used in several works which fitted empirical GRB models to the SPI data \citep{Malaguti-2003, Mereghetti-2003, Mereghetti-2003.2, Kienlin-2003, Kienlin-2003.2,Beckmann-2004, Moran-2005, Filliatre-2005.1, Filliatre-2005.2, McBreen-2006, Grebenev-2007, McGlynn-2008, Foley-2008, McGlynn-2009, Martin-Carrillo-2014}.
 
-\citet{Bosnjak-2014} used a different approach to create a spectral catalogue of INTEGRAL GRBs, with a joined analysis of SPI and the Imager on Board the INTEGRAL Satellite (IBIS). They construct a response for every SPI detector and forward model the photon model directly into the data space of every detector, which is similar to our approach in this work. But they build the responses and treated the background differently then we do in this work. We will point out the differences in Sec. \ref{pyspi}.
+%\citet{Bosnjak-2014} used a different approach to create a spectral catalogue of INTEGRAL GRBs, with a joined analysis of SPI and the Imager on Board the INTEGRAL Satellite (IBIS). They construct a response for every SPI detector and forward model the photon model directly into the data space of every detector, which is similar to our approach in this work. But they build the responses and treated the background differently then we do in this work. We will point out the differences in Sec. \ref{pyspi}.
 %But they build the response simply according to the exposed fraction of the detector for the GRB direction and use background subtracted data for their fits.
 %Several works have used SPI data for GRBs \citep{spi_grb1, spi_grb2}, but all of them fitted empirical models like the Band function.
 
@@ -85,7 +85,7 @@ This work is structured as follows: In Sec. \ref{methods} we summarize the diffe
 
 \section{SPI GRB Analysis Methods}
 \label{methods}
-All gamma-ray instruments suffer from energy dispersion and finite energy resolution. The information about this is encoded in the response matrix, that gives the probability of a photon with a certain energy and starting position on the sky to be detected in one of the electronic channels of the detector. These response matrices are usually not invertible, and therefore we have to forward fold the photon spectrum trough the response matrix into the data space of the detected counts and compare them, using the correct likelihood. This is a general statement that also applies to SPI. In the following subsection we will first cover some general concepts for SPI and then the standard analysis method within {\tt OSA} as well as the method within our new analysis tool {\tt PySPI}. The main difference is that the method in {\tt PySPI} is a full forward folding method, fulfilling the statement above, which results in maximising the information we can get from the data in the analysis.
+\BB{All instruments, especially gamma-ray instrument, suffer from energy dispersion and finite energy resolution}. The information about this is encoded in the response matrix, that gives the probability of a photon with a certain energy and starting position on the sky to be detected in one of the electronic channels of the detector. These response matrices are usually not invertible, and therefore we have to forward fold the photon spectrum trough the response matrix into the data space of the detected counts and compare them, using the correct likelihood. This is a general statement that also applies to SPI. In the following subsection we will first cover some general concepts for SPI and then the standard analysis method within {\tt OSA} as well as the method within our new analysis tool {\tt PySPI}. The main difference is that the method in {\tt PySPI} is a full forward folding method, fulfilling the statement above, which results in maximising the information we can get from the data in the analysis.
 
 \subsection{Response}
 \label{response}
@@ -155,7 +155,7 @@ where $b_{\mathrm{i}}$ are the background rates per energy channel, $B_{\mathrm{
     \end{centering}
 \end{figure}
 
-This background treatment is different from what is done in \citet{Bosnjak-2014}, where they used background subtracted data in their analysis. It has been shown that using background subtraction can give misleading results \citep[e.g.][]{Greiner-2016}.
+%This background treatment is different from what is done in \citet{Bosnjak-2014}, where they used background subtracted data in their analysis. It has been shown that using background subtraction can give misleading results \citep[e.g.][]{Greiner-2016}.
 
 
 \subsubsection{Likelihood}
@@ -193,7 +193,8 @@ This profile likelihood method is used in many spectral analysis works \citep[e.
 
 \subsubsection{Response}
 
-In {\tt PySPI}, we use the official response files, as described in Sec. \ref{response}, interpolate them to the wanted energy bins and source positions and construct one response matrix incorporating all the information about the effective area and energy redistribution. This also includes that we take into account that the mask is not absorbing 100\% of the photons flying through it. This is different to the work presented in \citet{Bosnjak-2014}, which used a `response function' simply taking into account the exposed fraction of each detector and therefore assuming a mask that absorbs 100\% of the photons for every photon energy.
+In {\tt PySPI}, we use the official response files, as described in Sec. \ref{response}, interpolate them to the wanted energy bins and source positions and construct one response matrix incorporating all the information about the effective area and energy redistribution. This also includes that we take into account that the mask is not absorbing 100\% of the photons flying through it.
+%This is different to the work presented in \citet{Bosnjak-2014}, which used a `response function' simply taking into account the exposed fraction of each detector and therefore assuming a mask that absorbs 100\% of the photons for every photon energy.
 
 \subsubsection{Electronic Noise}
 
@@ -238,6 +239,13 @@ The core of the model is the assumption of some generic acceleration mechanism, 
 There exists a strong degeneracy between $B$ and $\gamma_{\mathrm{inj}}$, as their combination sets the peak of the photon spectrum. Therefore we fix $\gamma_{\mathrm{inj}}=10^{5}$ and only fit for $B$.
 % the following is just duplication
 %Thus, the results for $\gamma_{\mathrm{max}}$ and $\gamma_{\mathrm{cool}}$ are determined relative to the fixed $\gamma_{\mathrm{inj}}$.
+
+\subsection{Comparison to Bo{\v{s}}njak et al. 2014}
+
+BB{\citet{Bosnjak-2014} did a joined analysis of SPI and the Imager on Board the INTEGRAL Satellite (IBIS) data of GRBs to create a spectral catalque of INTEGRAL GRBs \citep{Ubertini-2003}. They construct a response for every SPI detector and forward model the photon model directly into the data space of every detector, which is similar to our approach in this work. But following their paper we see three main differences compared to our methods: Background treatment, response generation and PSD events.\\
+In the paper the authors argue that background subtracting is better than using a model template for the background within OSA, as well as cite Cash 1979 \citep{Cash-1979} for their likelihood. Therefore we conclude that they used a Poisson likelihood on the background subtracted data. This is different to our approach and it has been shown that using background subtraction can give misleading results \citep[e.g.][]{Greiner-2016}. For the response generation the authors in \citet{Bosnjak-2014} state that they calculate a response function taking into account the exposed fraction of each detector for the GRB position and that for a detector completely shadowed the net spectrum is zero. Therefore we conclude that they used an idealistic mask with zero transparency at all energies. We on the other hand used the official response simulations that also include some transparency, especially at high energies. The last point are the PSD events, which are ignored completely in \citet{Bosnjak-2014}. \citet{spi_electronic_noise} have shown that the effect of the PSD events gets stronger for bright sources, therefore it is important to account for this effect in the case of GRBs.\\
+Unfortunately the software used in \citet{Bosnjak-2014} is not public, so we can not compare our method with theirs directly.}
+
 
 \section{Model Checking}
 \label{PPC}
@@ -369,12 +377,12 @@ This work made use of the following software packages:\\
 
   \section{Localizing GRB 120711A}
 
-  It is also possible to localize GRBs with PySPI. To localize we vary the spectrum parameters and the location of the source at the same time in one fit. For this, PySPi has a fast response generator, that uses the base response simulation grid to generate the response for any given source position quickly. Fig. \ref{fig:localization} shows the localization we get if we fit the location and use a Band function as spectral model. We also marked the position of the GRB measured by Swift/XRT, which shows that the result with the SPI data is in agreement with the Swift/XRT observation. For this fit we only used the energies up to 600 keV, to avoid the PSD energy region.
+  \BB{It is also possible to localize GRBs with PySPI. To localize we vary the spectrum parameters and the location of the source at the same time in one fit. For this, PySPi has a fast response generator, that uses the base response simulation grid to generate the response for any given source position quickly. Fig. \ref{fig:localization} shows the localization we get if we fit the location and use a Band function as spectral model. We also marked the position of the GRB measured by Swift/XRT, which shows that the result with the SPI data is in agreement with the Swift/XRT observation \citep{GCN_swift}. For this fit we only used the energies up to 600 keV, to avoid the PSD energy region.}
 
   \begin{figure}
   \begin{centering}
     \includegraphics[width=1\linewidth]{figures/loc.pdf}
-    \caption{Localization of GRB120711A with PySPI with contours giving the statistical only 1 and 2 sigma areas. We estimate an additional systematic error of $\approx$ 0.5 degree because that is the resolution of the grid points in the response simulation. The dashed lines mark the position observed by Swift/XRT.}
+    \caption{Localization of GRB120711A with PySPI with contours giving the statistical only 1 and 2 sigma areas. We estimate an additional systematic error of $\approx$ 0.5 degree because that is the resolution of the grid points in the response simulation. The dashed lines mark the position observed by Swift/XRT \citep{GCN_swift}.}
     \label{fig:localization}
   \end{centering}
 \end{figure}
